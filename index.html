@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OptimaAI Programming Framework</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+            color: white;
+            overflow: hidden;
+        }
+
+        .presentation {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slide {
+            width: 90%;
+            max-width: 1200px;
+            height: 90%;
+            padding: 40px;
+            display: none;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .slide.active {
+            display: flex;
+        }
+
+        .slide-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .slide-title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #00ff88, #00d4ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .slide-subtitle {
+            font-size: 1.2rem;
+            color: #a0a0a0;
+        }
+
+        .content-grid {
+            display: grid;
+            gap: 20px;
+            flex: 1;
+        }
+
+        .two-column {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .three-column {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .single-column {
+            grid-template-columns: 1fr;
+        }
+
+        .content-box {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .content-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.3);
+        }
+
+        .box-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #00ff88;
+        }
+
+        .box-content {
+            line-height: 1.6;
+            color: #e0e0e0;
+        }
+
+        .box-content ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .box-content li {
+            margin: 8px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .box-content li::before {
+            content: "▶";
+            position: absolute;
+            left: 0;
+            color: #00ff88;
+        }
+
+        .navigation {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-btn {
+            background: rgba(0, 255, 136, 0.2);
+            border: 1px solid #00ff88;
+            color: #00ff88;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            background: #00ff88;
+            color: #1a1a2e;
+        }
+
+        .slide-counter {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            color: #a0a0a0;
+            font-size: 0.9rem;
+        }
+
+        .architecture-diagram {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            position: relative;
+        }
+
+        .diagram-container {
+            width: 100%;
+            height: 500px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .diagram-element {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            border: 2px solid #00ff88;
+            backdrop-filter: blur(10px);
+        }
+
+        .agent-core {
+            width: 200px;
+            height: 120px;
+            background: linear-gradient(135deg, #00ff88, #00d4ff);
+            color: #1a1a2e;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .connected-system {
+            width: 120px;
+            height: 80px;
+            font-size: 0.9rem;
+        }
+
+        .resource-library {
+            width: 150px;
+            height: 100px;
+            background: rgba(255, 136, 0, 0.3);
+            border-color: #ff8800;
+        }
+
+        .developer {
+            width: 100px;
+            height: 80px;
+            background: rgba(0, 136, 255, 0.3);
+            border-color: #0088ff;
+        }
+
+        .connection-line {
+            position: absolute;
+            height: 2px;
+            background: #00ff88;
+            opacity: 0.6;
+        }
+
+        .step-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 30px;
+            flex: 1;
+        }
+
+        .step-box {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            position: relative;
+            border: 2px solid #00ff88;
+        }
+
+        .step-number {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #00ff88;
+            color: #1a1a2e;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .step-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #00ff88;
+            margin-bottom: 15px;
+            margin-top: 10px;
+        }
+
+        .benefit-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            flex: 1;
+        }
+
+        .benefit-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            border: 2px solid #00ff88;
+        }
+
+        .benefit-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #00ff88;
+            display: block;
+        }
+
+        .benefit-text {
+            margin-top: 10px;
+            color: #e0e0e0;
+        }
+
+        .demo-placeholder {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            border: 2px dashed #00ff88;
+            margin: 20px 0;
+        }
+
+        .demo-text {
+            font-size: 1.5rem;
+            color: #00ff88;
+            text-align: center;
+        }
+
+        .logo {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #00ff88;
+        }
+
+        .highlight {
+            color: #00ff88;
+            font-weight: bold;
+        }
+
+        /* AI Tools Landscape specific styles */
+        .tools-categories {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .tool-category {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            border: 1px solid #00ff88;
+            backdrop-filter: blur(10px);
+        }
+
+        .tool-category h5 {
+            color: #00ff88;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .tool-examples {
+            font-size: 0.8rem;
+            color: #00d4ff;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .tool-features {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            font-size: 0.7rem;
+            line-height: 1.3;
+        }
+
+        .tool-features li {
+            margin: 3px 0;
+            color: #e0e0e0;
+        }
+
+        .decision-matrix {
+            margin-top: 20px;
+        }
+
+        .matrix-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.8rem;
+        }
+
+        .matrix-table th,
+        .matrix-table td {
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 8px;
+            text-align: center;
+        }
+
+        .matrix-table th {
+            background: rgba(0, 255, 136, 0.2);
+            color: #00ff88;
+            font-weight: bold;
+        }
+
+        /* Flowchart specific styles */
+        .flowchart-container {
+            width: 100%;
+            height: 500px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+        }
+
+        .flow-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .flow-element {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            border: 2px solid #00ff88;
+            backdrop-filter: blur(10px);
+            margin: 10px;
+            position: relative;
+        }
+
+        .developer-interface {
+            background: linear-gradient(135deg, #0088ff, #0066cc);
+            color: white;
+            width: 200px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .agent-core-flow {
+            background: linear-gradient(135deg, #00ff88, #00d4ff);
+            color: #1a1a2e;
+            width: 300px;
+            height: 120px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin: 0 40px;
+        }
+
+        .input-sources {
+            display: flex;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .input-source {
+            background: rgba(255, 193, 7, 0.3);
+            border: 2px solid #ffc107;
+            width: 140px;
+            height: 60px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .output-cases {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .output-case {
+            background: rgba(40, 167, 69, 0.3);
+            border: 2px solid #28a745;
+            width: 180px;
+            height: 80px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .flow-arrow {
+            font-size: 2rem;
+            color: #00ff88;
+            margin: 0 10px;
+        }
+
+        .vertical-arrow {
+            font-size: 2rem;
+            color: #00ff88;
+            margin: 10px 0;
+        }
+
+        /* Demo slide specific styles */
+        .demo-slide-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .demo-title-only {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation">
+        <div class="logo">R SYSTEMS</div>
+        
+        <!-- Slide 1: Title -->
+        <div class="slide active">
+            <div class="slide-header">
+                <h1 class="slide-title">OptimaAI Programming Framework</h1>
+                <p class="slide-subtitle">AI Agents + Programming: Context-Aware Development at Scale</p>
+            </div>
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
+                <div style="font-size: 1.3rem; margin-bottom: 40px; color: #e0e0e0;">
+                    Revolutionizing software development through intelligent AI agent orchestration
+                </div>
+                <div style="display: flex; justify-content: center; gap: 60px; margin-bottom: 40px;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 3rem; margin-bottom: 10px;">🔌</div>
+                        <div style="color: #00ff88; font-weight: bold;">Plug & Play Framework</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 3rem; margin-bottom: 10px;">🌐</div>
+                        <div style="color: #00ff88; font-weight: bold;">Connected Ecosystem</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 3rem; margin-bottom: 10px;">🤖</div>
+                        <div style="color: #00ff88; font-weight: bold;">Autonomous Development</div>
+                    </div>
+                </div>
+                <div style="font-size: 1.1rem; color: #a0a0a0;">
+                    Transform your SDLC with intelligent agents that understand context, automate workflows, and accelerate delivery
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2: Why AI Agents in Programming -->
+        <div class="slide">
+            <div class="slide-header">
+                <h1 class="slide-title">Why AI Agents Should Be Adopted in Programming</h1>
+                <p class="slide-subtitle">The Evolution from Manual Development to Autonomous Programming</p>
+            </div>
+            <div class="content-grid two-column">
+                <div class="content-box">
+                    <div class="box-title">⚠️ Traditional Development Challenges</div>
+                    <div class="box-content">
+                        <ul>
+                            <li>🔄 Manual context switching between tools and documentation</li>
+                            <li>📝 Repetitive boilerplate code generation</li>
+                            <li>🐛 Time-consuming debugging and error resolution</li>
+                            <li>📏 Inconsistent coding standards across teams</li>
+                            <li>🧠 Limited knowledge retention across projects</li>
+                            <li>⏰ Slow onboarding for new technologies</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="content-box">
+                    <div class="box-title">✨ AI Agent-Driven Benefits</div>
+                    <div class="box-content">
+                        <ul>
+                            <li>🎯 Contextual code generation with enterprise standards</li>
+                            <li>🧪 Automated testing and quality assurance</li>
+                            <li>🔍 Intelligent debugging with root cause analysis</li>
+                            <li>🔗 Seamless integration with development ecosystems</li>
+                            <li>📈 Continuous learning and improvement</li>
+                            <li>🚀 Accelerated feature development cycles</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Framework Overview Part 1 -->
+        <div class="slide">
+            <div class="slide-header">
+                <h1 class="slide-title">OptimaAI Framework: Core Components</h1>
+                <p class="slide-subtitle">Plug & Play Agent Ecosystem</p>
+            </div>
+            <div class="content-grid three-column">
+                <div class="content-box">
+                    <div class="box-title">🔌 Universal Compatibility</div>
+                    <div class="box-content">
+                        <ul>
+                            <li>Works with any AI IDE or tool</li>
+                            <li>Cursor integration</li>
+                            <li>GitHub Copilot support</li>
+                            <li>Claude Code compatibility</li>
+                            <li>VS Code extensions</li>
+                            <li>JetBrains IDE support</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="content-box">
+                    <div class="box-title">🌐 Connected Agent Ecosystem</div>
+                    <div class="box-content">
+                        <ul>
+                            <li>Multi-agent collaboration</li>
+                            <li>Shared context and memory</li>
+                            <li>Workflow orchestration</li>
+                            <li>Real-time communication</li>
+                            <li>Task delegation</li>
+                            <li>Progressive enhancement</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="content-box">
+                    <div class="box-title">📚 Resource Library</div>
+                    <div class="box-content">
+                        <ul>
+                            <li>Sequential thinking workflows</li>
+                            <li>Plan and act methodologies</li>
+                            <li>Reverse engineering patterns</li>
+                            <li>MCP server integrations</li>
+                            <li>Structured code generation</li>
+                            <li>Best practice templates</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Framework Overview Part 2 -->
+        <div class="slide">
+            <div class="slide-header">
+                <h1 class="slide-title">OptimaAI Framework: Advanced Capabilities</h1>
+                <p class="slide-subtitle">Autonomous Development Infrastructure</p>
+            </div>
+            <div class="content-grid three-column">
+                <div class="content-box">
+                    <div class="box-title">🔗 System Integrations</div>
+                    <div class="box-content">
+                        <ul>
+                            <li>Atlassian suite connectivity</li>
+                            <li>GitHub/GitLab integration</li>
+                            <li>Google/MS Workspace</li>
+                            <li>Figma design sync</li>
+                            <li>Browser automation</li>
+                            <li>Cloud console access</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="content-box">
+                    <div class="box-title">📖 Knowledge Indexing</div>
+                    <div class="box-content">
+                        <ul>
+                            <li>Library documentation indexing</li>
+                            <li>Package reference integration</li>
+                            <li>Tech stack specific guidance</li>
+                            <li>API documentation access</li>
+                            <li>Framework best practices</li>
+                            <li>Version-specific updates</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="content-box">
+                    <div class="box-title">🧠 Agentic Memory</div>
+                    <div class="box-content">
+                        <ul>
+                            <li>Previous interaction memory</li>
+                            <li>Learning from feedback</li>
+                            <li>Context persistence</li>
+                            <li>Preference adaptation</li>
+                            <li>Progressive improvement</li>
+                            <li>Team knowledge sharing</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Framework Overview Part 3 -->
+        <div class="slide">
+            <div class="slide-header">
+                <h1 class="slide-title">OptimaAI Framework: Security & Governance</h1>
+                <p class="slide-subtitle">Enterprise-Grade Safeguards</p>
+            </div>
+            <div class="content-grid single-column">
+                <div class="content-box">
+                    <div class="box-title">🛡️ Intelligent Guardrails</div>
+                    <div class="box-content" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+                        <div>
+                            <strong>🔒 Security Protocols:</strong>
+                            <ul>
+                                <li>Sensitive data detection</li>
+                                <li>Code vulnerability scanning</li>
+                                <li>Access control enforcement</li>
+                                <li>Audit trail maintenance</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <strong>✅ Quality Assurance:</strong>
+                            <ul>
+                                <li>Code standard compliance</li>
+                                <li>Performance optimization</li>
+                                <li>Test coverage validation</li>
+                                <li>Documentation completeness</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <strong>📋 Governance Rules:</strong>
+                            <ul>
+                                <li>Organizational policy adherence</li>
+                                <li>Workflow approval gates</li>
+                                <li>Compliance reporting</li>
+                                <li>Risk assessment protocols</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Architecture Diagram -->
+        <div class="slide">
+            <div class="slide-header">
+                <h1 class="slide-title">🏗️ OptimaAI Framework Architecture</h1>
+                <p class="slide-subtitle">Connected Agent Ecosystem Workflow</p>
+            </div>
+            
+            <div class="flowchart-container">
+                <!-- Developer Interface -->
+                <div class="flow-row">
+                    <div class="flow-element developer-interface">
+                        👨‍💻 Developer<br>Interface
+                    </div>
+                </div>
+                
+                <div class="vertical-arrow">↓</div>
+                
+                <!-- Input Sources -->
+                <div class="flow-row">
+                    <div class="input-sources">
+                        <div class="flow-element input-source">
+                            <div class="mcp-label">MCP</div>
+                            📋 JIRA / Linear /<br>Azure DevOps
+                        </div>
+                        <div class="flow-element input-source">
+                            <div class="mcp-label">MCP</div>
+                            📚 Libraries /<br>Package Docs
+                        </div>
+                        <div class="flow-element input-source">
+                            📏 Rules /<br>Coding Guidelines
+                        </div>
+                        <div class="flow-element input-source">
+                            🌐 Browser /<br>Environment Access
+                        </div>
+                        <div class="flow-element input-source">
+                            <div class="mcp-label">CLI</div>
+                            🔧 API Client<br>Access
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="vertical-arrow">↓</div>
+                
+                <!-- Agent Core -->
+                <div class="flow-row">
+                    <div class="flow-element agent-core-flow">
+                        🤖 Connected AI Agent Core<br>
+                        <div style="font-size: 0.8rem; margin-top: 5px; color: #1a1a2e;">
+                            • Querying codebase<br>
+                            • Listing directories & files<br>
+                            • Process large files<br>
+                            • Access to CLI
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="vertical-arrow">↓</div>
+                
+                <!-- Output Use Cases -->
+                <div class="flow-row">
+                    <div class="output-cases">
+                        <div class="flow-element output-case">
+                            🚀 Autonomous Code<br>Generation
+                        </div>
+                        <div class="flow-element output-case">
+                            🐛 Agent Assisted<br>Debugging
+                        </div>
+                        <div class="flow-element output-case">
+                            ⚙️ Large Scale Code<br>Transformations /<br>Refactoring
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: AI Agents Tooling Landscape -->
+        <div class="slide">
+            <div class="slide-header">
+                <h1 class="slide-title">🛠️ AI Tools Landscape & Selection Guide</h1>
+                <p class="slide-subtitle">Understanding the ecosystem to make informed decisions for your SDLC</p>
+            </div>
+            
+            <div class="tools-categories">
+                <div class="tool-category">
+                    <h5>AI Native IDE</h5>
+                    <div class="tool-examples">Cursor, Windsurf</div>
+                    <ul class="tool-features">
+                        <li>✓ Interactive pair programming</li>
+                        <li>✓ Long context mode</li>
+                        <li>✓ Multi-file editing</li>
+                        <li>✓ Deep indexing</li>
+                        <li>△ Limited IDE support</li>
+                    </ul>
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #00ff88; font-weight: bold;">Best for: Daily coding</div>
+                </div>
+                
+                <div class="tool-category">
+                    <h5>AI Extension in IDE</h5>
+                    <div class="tool-examples">GitHub Copilot, Amazon Q, Cline</div>
+                    <ul class="tool-features">
+                        <li>✓ Works with existing IDEs</li>
+                        <li>✓ Enterprise compliance</li>
+                        <li>✓ Multiple LLM Support</li>
+                        <li>△ Limited native features</li>
+                    </ul>
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #00ff88; font-weight: bold;">Best for: Enterprise teams</div>
+                </div>
+                
+                <div class="tool-category">
+                    <h5>Prototyping Tools</h5>
+                    <div class="tool-examples">Lovable.dev, V0.dev, Bolt.new</div>
+                    <ul class="tool-features">
+                        <li>✓ Rapid prototyping</li>
+                        <li>✓ Natural language input</li>
+                        <li>✓ Quick POCs</li>
+                        <li>△ Not production-ready</li>
+                    </ul>
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #00ff88; font-weight: bold;">Best for: Quick prototypes</div>
+                </div>
+                
+                <div class="tool-category">
+                    <h5>Background Agent</h5>
+                    <div class="tool-examples">Devin, Factory AI, Jules</div>
+                    <ul class="tool-features">
+                        <li>✓ Fire and Forget</li>
+                        <li>✓ Large scale tasks</li>
+                        <li>✓ Parallel execution</li>
+                        <li>△ Non-interactive</li>
+                    </ul>
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #00ff88; font-weight: bold;">Best for: Large automation</div>
+                </div>
+                
+                <div class="tool-category">
+                    <h5>CLI Agent</h5>
+                    <div class="tool-examples">Claude Code, Aider, Amazon Q CLI</div>
+                    <ul class="tool-features">
+                        <li>✓ Local execution</li>
+                        <li>✓ Semi-interactive</li>
+                        <li>✓ External tooling (MCP)</li>
+                        <li>✓ Privacy compliant</li>
+                    </ul>
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #00ff88; font-weight: bold;">Best for: Complex local tasks</div>
+                </div>
+            </div>
+            
+            <div class="decision-matrix">
+                <h3 style="color: #00d4ff; margin-bottom: 15px;">📊 Quick Decision Matrix</h3>
+                <table class="matrix-table">
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>Interactivity</th>
+                            <th>Privacy</th>
+                            <th>Setup</th>
+                            <th>Scale</th>
+                            <th>Use When</th>
+                            <th>Best For</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>AI Native IDE</td>
+                            <td>High</td>
+                            <td>Medium</td>
+                            <td>Complex</td>
+                            <td>Individual</td>
+                            <td>Greenfield</td>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td>AI Extension</td>
+                            <td>High</td>
+                            <td>High</td>
+                            <td>Easy</td>
+                            <td>Team</td>
+                            <td>Enterprise</td>
+                            <td>Daily coding</td>
+                        </tr>
+                        <tr>
+                            <td>Prototyping</td>
+                            <td>High</td>
+                            <td>High</td>
+                            <td>Easy</td>
+                            <td>Limited</td>
+                            <td>Rapid POCs</td>
+                            <td>Quick mockups</td>
+                        </tr>
+                        <tr>
+                            <td>Background</td>
+                            <td>Low</td>
+                            <td>Low</td>
+                            <td>Easy</td>
+                            <td>Massive</td>
+                            <td>Large tasks</td>
+                            <td>Bulk automation</td>
+                        </tr>
+                        <tr>
+                            <td>CLI Agent</td>
+                            <td>Medium</td>
+                            <td>High</td>
+                            <td>Medium</td>
+                            <td>High</td>
+                            <td>Complex tasks</td>
+                            <td>Local development</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Slide 8: New Era of Programming -->
+        <div class="slide">
+            <div class="slide-header">
+                <h1 class="slide-title">🚀 New Era of Programming with Agents</h1>
+                <p class="slide-subtitle">Plan & Act Approach for Autonomous Development</p>
+            </div>
+            <div class="step-container">
+                <div class="step-box">
+                    <div class="step-number">1</div>
+                    <div class="step-title">🔍 Context Engineering</div>
+                    <div class="box-content">
+                        <ul>
+                            <li>📊 Gather context from multiple data sources</li>
+                            <li>📋 Read JIRA tickets and PRDs</li>
+                            <li>📖 Index tech stack documentation</li>
+                            <li>⚙️ Apply cursor rules and guidelines</li>
+                            <li>💾 Store in memory or markdown files</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="step-box">
+                    <div class="step-number">2</div>
+                    <div class="step-title">📋 Plan Mode</div>
+                    <div class="box-content">
+                        <ul>
+                            <li>🎯 Use Taskmaster MCP for task board creation</li>
+                            <li>📝 Structured step-wise implementation plan</li>
+                            <li>🎨 Programming style guidelines</li>
+                            <li>📚 Documentation references</li>
+                            <li>🛡️ Security and quality guardrails</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="step-box">
+                    <div class="step-number">3</div>
+                    <div class="step-title">⚡ Act Mode</div>
+                    <div class="box-content">
+                        <ul>
+                            <li>🤖 Pick up tasks autonomously</li>
+                            <li>🌿 Create micro branches with code</li>
+                            <li>👥 Human-in-the-loop review points</li>
+                            <li>📈 Update task board progress</li>
+                            <li>🧠 Maintain context awareness</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="content-box" style="margin-top: 20px; text-align: center;">
+                <div class="box-content">
+                    <strong>🎯 Result:</strong> <span class="highlight">70-80% automation</span> with extreme accuracy and autonomous operation
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Benefits -->
+        <div class="slide">
+            <div class="slide-header">
+                <h1 class="slide-title">📈 Framework Benefits</h1>
+                <p class="slide-subtitle">Measurable Impact on Development Productivity</p>
+            </div>
+            <div class="benefit-grid">
+                <div class="benefit-item">
+                    <span class="benefit-number">2-3X</span>
+                    <div class="benefit-text">Faster Code Generation</div>
+                </div>
+                <div class="benefit-item">
+                    <span class="benefit-number">70-80%</span>
+                    <div class="benefit-text">Work Automation</div>
+                </div>
+                <div class="benefit-item">
+                    <span class="benefit-number">40%</span>
+                    <div class="benefit-text">Reduction in Release Cycles</div>
+                </div>
+                <div class="benefit-item">
+                    <span class="benefit-number">60%</span>
+                    <div class="benefit-text">Faster Bug Resolution</div>
+                </div>
+                <div class="benefit-item">
+                    <span class="benefit-number">50%</span>
+                    <div class="benefit-text">Quicker Design Iterations</div>
+                </div>
+                <div class="benefit-item">
+                    <span class="benefit-number">35%</span>
+                    <div class="benefit-text">Cost Savings</div>
+                </div>
+                <div class="benefit-item">
+                    <span class="benefit-number">90%</span>
+                    <div class="benefit-text">Improved Code Quality</div>
+                </div>
+                <div class="benefit-item">
+                    <span class="benefit-number">80%</span>
+                    <div class="benefit-text">Enhanced Reliability</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Use Cases -->
+        <div class="slide">
+            <div class="slide-header">
+                <h1 class="slide-title">⚡ Framework Use Cases</h1>
+                <p class="slide-subtitle">Real-World Applications Across Development Lifecycle</p>
+            </div>
+            <div class="content-grid three-column">
+                <div class="content-box">
+                    <div class="box-title">🔍 Agent Driven Reverse Engineering</div>
+                    <div class="box-content">
+                        Automatically analyze and understand legacy codebases, extract patterns, and generate comprehensive documentation for modernization efforts.
+                    </div>
+                </div>
+                <div class="content-box">
+                    <div class="box-title">🔄 AI Assisted Tech Migration</div>
+                    <div class="box-content">
+                        Seamlessly migrate applications between technology stacks with intelligent code transformation and compatibility verification.
+                    </div>
+                </div>
+                <div class="content-box">
+                    <div class="box-title">🐛 Agent Assisted Debugging</div>
+                    <div class="box-content">
+                        Intelligent root cause analysis with automated debugging sessions and suggested fixes based on codebase context.
+                    </div>
+                </div>
+                <div class="content-box">
+                    <div class="box-title">⚙️ Large Scale Refactoring</div>
+                    <div class="box-content">
+                        Perform enterprise-wide code optimizations and architectural improvements with consistency and minimal risk.
+                    </div>
+                </div>
+                <div class="content-box">
+                    <div class="box-title">🚀 Accelerated Feature Development</div>
+                    <div class="box-content">
+                        Rapid feature implementation from requirements to deployment with automated testing and documentation generation.
+                    </div>
+                </div>
+                <div class="content-box">
+                    <div class="box-title">⚡ Rapid Prototyping & MVP Building</div>
+                    <div class="box-content">
+                        Transform ideas into functional prototypes and MVPs with end-to-end automation from design to deployment.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Demo Slides -->
+        <!-- Slide 11: Agentic Reverse Engineering Demo -->
+        <div class="slide">
+            <div class="demo-slide-content">
+                <div class="demo-title-only">
+                    <h1 class="slide-title">🔍 Demo: Agentic Reverse Engineering</h1>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: Agent Assisted Tech Migration Demo -->
+        <div class="slide">
+            <div class="demo-slide-content">
+                <div class="demo-title-only">
+                    <h1 class="slide-title">🔄 Demo: Agent Assisted Tech Migration</h1>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: Connected Ecosystem Feature Building Demo -->
+        <div class="slide">
+            <div class="demo-slide-content">
+                <div class="demo-title-only">
+                    <h1 class="slide-title">🔗 Demo: Connected Ecosystem Feature Building</h1>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 14: Agent Driven PR Comments Resolution Demo -->
+        <div class="slide">
+            <div class="demo-slide-content">
+                <div class="demo-title-only">
+                    <h1 class="slide-title">💬 Demo: Agent Driven PR Comments Resolution</h1>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 15: Agent Assisted Debugging Session Demo -->
+        <div class="slide">
+            <div class="demo-slide-content">
+                <div class="demo-title-only">
+                    <h1 class="slide-title">🐛 Demo: Agent Assisted Debugging Session</h1>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 16: Conclusion -->
+        <div class="slide">
+            <div class="slide-header">
+                <h1 class="slide-title">🎯 OptimaAI Programming Framework</h1>
+                <p class="slide-subtitle">Transforming Development Through Intelligent Automation</p>
+            </div>
+            <div class="content-grid two-column">
+                <div class="content-box">
+                    <div class="box-title">🚀 Key Differentiators</div>
+                    <div class="box-content">
+                        <ul>
+                            <li>🔌 Universal tool compatibility</li>
+                            <li>🌐 Connected agent ecosystem</li>
+                            <li>🛡️ Enterprise-grade security</li>
+                            <li>🧠 Context-aware automation</li>
+                            <li>📈 Continuous learning capability</li>
+                            <li>⚡ 70-80% work automation</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="content-box">
+                    <div class="box-title">📞 Ready to Get Started?</div>
+                    <div class="box-content">
+                        <p>Experience the future of programming with OptimaAI Framework</p>
+                        <br>
+                        <p><strong>Contact:</strong> R Systems</p>
+                        <p><strong>Email:</strong> info@rsystems.com</p>
+                        <p><strong>Web:</strong> rsystems.com</p>
+                        <br>
+                        <p class="highlight">Let's revolutionize your development process together!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="navigation">
+            <button class="nav-btn" onclick="previousSlide()">Previous</button>
+            <button class="nav-btn" onclick="nextSlide()">Next</button>
+        </div>
+        
+        <div class="slide-counter">
+            <span id="current-slide">1</span> / <span id="total-slides">17</span>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        
+        document.getElementById('total-slides').textContent = totalSlides;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            document.getElementById('current-slide').textContent = currentSlide + 1;
+        }
+
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+
+        function previousSlide() {
+            showSlide(currentSlide - 1);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                nextSlide();
+                e.preventDefault();
+            } else if (e.key === 'ArrowLeft') {
+                previousSlide();
+                e.preventDefault();
+            }
+        });
+
+        // Touch/swipe support for mobile
+        let startX = 0;
+        let endX = 0;
+
+        document.addEventListener('touchstart', function(e) {
+            startX = e.changedTouches[0].screenX;
+        });
+
+        document.addEventListener('touchend', function(e) {
+            endX = e.changedTouches[0].screenX;
+            if (startX - endX > 50) {
+                nextSlide();
+            } else if (endX - startX > 50) {
+                previousSlide();
+            }
+        });
+
+        // Initialize
+        showSlide(0);
+    </script>
+</body>
+</html>
