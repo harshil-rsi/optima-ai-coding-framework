@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>R Systems AI Accelerators - Legacy to REST APIs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .slide {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        .slide.active {
+            display: flex;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .card-gradient {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+        }
+        
+        .architecture-placeholder {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border: 2px dashed #94a3b8;
+            min-height: 400px;
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+        }
+        .architecture-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        
+        .code-block {
+            background: #1e293b;
+            color: #e2e8f0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .feature-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.1);
+        }
+
+        .table-modern th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .table-modern tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        .table-modern tr:hover {
+            background-color: #f1f5f9;
+        }
+    </style>
+    
+</head>
+<body class="bg-gradient-to-br from-slate-50 to-slate-100 min-h-screen">
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 bg-white/90 backdrop-blur-md shadow-sm z-50 px-6 py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <h1 class="text-xl font-bold gradient-text">R Systems Accelerators</h1>
+                <span class="text-sm text-slate-500">AI-Assisted REST APIs</span>
+            </div>
+            <div class="flex items-center space-x-4">
+                <button onclick="prevSlide()" class="px-4 py-2 text-slate-600 hover:text-slate-900 transition">← Previous</button>
+                <span id="slideNumber" class="text-sm text-slate-600">1 / 20</span>
+                <button onclick="nextSlide()" class="px-4 py-2 text-slate-600 hover:text-slate-900 transition">Next →</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="pt-24 pb-12 px-6">
+        <div class="max-w-7xl mx-auto">
+            
+            <!-- Title Slide -->
+            <div class="slide active min-h-[70vh] flex-col justify-center items-center text-center">
+                <h1 class="text-6xl font-bold mb-6 gradient-text">R Systems Accelerators</h1>
+                <h2 class="text-3xl font-light text-slate-700 mb-8">AI-Assisted REST APIs on Legacy VB6 & Progress (OpenEdge)</h2>
+                <div class="flex gap-6 justify-center mb-12">
+                    <div class="px-6 py-3 bg-purple-100 rounded-full text-purple-700 font-medium">VB6 → REST</div>
+                    <div class="px-6 py-3 bg-indigo-100 rounded-full text-indigo-700 font-medium">Progress ABL → REST</div>
+                </div>
+                <p class="text-lg text-slate-600 max-w-2xl">Purpose-built accelerators using Cursor CLI Agent + custom MCP servers to rapidly deliver REST endpoints over legacy systems</p>
+            </div>
+
+            <!-- Slide 1: The Problem We Solve -->
+            <div class="slide min-h-[70vh] flex-col justify-center">
+                <h2 class="text-4xl font-bold mb-12 gradient-text">The Problem We Solve</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+                    <div class="feature-card p-6 rounded-xl">
+                        <div class="text-3xl mb-4">🔒</div>
+                        <h3 class="text-xl font-semibold mb-2 text-slate-800">Legacy Lock-in</h3>
+                        <p class="text-slate-600">Critical logic trapped in VB6 forms/modules or ABL procedures</p>
+                    </div>
+                    <div class="feature-card p-6 rounded-xl">
+                        <div class="text-3xl mb-4">⚡</div>
+                        <h3 class="text-xl font-semibold mb-2 text-slate-800">Speed Without Risk</h3>
+                        <p class="text-slate-600">Need modern APIs without risky rewrites or long freezes</p>
+                    </div>
+                    <div class="feature-card p-6 rounded-xl">
+                        <div class="text-3xl mb-4">📚</div>
+                        <h3 class="text-xl font-semibold mb-2 text-slate-800">Knowledge Gap</h3>
+                        <p class="text-slate-600">Outdated documentation, tribal knowledge, and global state issues</p>
+                    </div>
+                    <div class="feature-card p-6 rounded-xl">
+                        <div class="text-3xl mb-4">🎯</div>
+                        <h3 class="text-xl font-semibold mb-2 text-slate-800">The Goal</h3>
+                        <p class="text-slate-600">Expose value quickly (days → weeks) with safety, tests, and growth path</p>
+                    </div>
+                </div>
+                <div class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white p-6 rounded-xl">
+                    <p class="text-lg font-medium">Our Solution: AI-assisted code archaeology → OpenAPI → API scaffold → adapters → tests using Cursor CLI Agent + MCP</p>
+                </div>
+            </div>
+
+            <!-- Slide 2: Our Two Accelerators -->
+            <div class="slide min-h-[70vh] flex-col justify-center">
+                <h2 class="text-4xl font-bold mb-12 gradient-text">Our Two Accelerators</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="bg-white rounded-2xl shadow-lg p-8 border-t-4 border-purple-500">
+                        <h3 class="text-2xl font-bold mb-4 text-purple-700">1. VB6 → REST Accelerator</h3>
+                        <ul class="space-y-3 text-slate-700">
+                            <li class="flex items-start">
+                                <span class="text-purple-500 mr-2">✓</span>
+                                <span>Wraps callable VB6 routines via COM/CLI shims</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-purple-500 mr-2">✓</span>
+                                <span>Auto-generates OpenAPI 3.1, controller stubs (.NET 8 or Node/Nest/Fastify)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-purple-500 mr-2">✓</span>
+                                <span>Includes VB6 MCP server to parse .frm/.bas/.cls and map call graphs</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="bg-white rounded-2xl shadow-lg p-8 border-t-4 border-indigo-500">
+                        <h3 class="text-2xl font-bold mb-4 text-indigo-700">2. Progress (OpenEdge/ABL) → REST</h3>
+                        <ul class="space-y-3 text-slate-700">
+                            <li class="flex items-start">
+                                <span class="text-indigo-500 mr-2">✓</span>
+                                <span>Maps ABL procedures and datasets to REST via PASOE</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-indigo-500 mr-2">✓</span>
+                                <span>Generates OpenAPI, handlers, adapters, and tests</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-indigo-500 mr-2">✓</span>
+                                <span>Includes ABL MCP server to introspect procedures and schemas</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mt-8 bg-slate-100 rounded-xl p-6">
+                    <h4 class="text-lg font-semibold mb-3 text-slate-800">Common Foundation:</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="flex items-center">
+                            <span class="text-2xl mr-3">🤖</span>
+                            <span class="text-slate-700">Cursor CLI Agent orchestration</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="text-2xl mr-3">📏</span>
+                            <span class="text-slate-700">Cursor Rules enforcement</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="text-2xl mr-3">📝</span>
+                            <span class="text-slate-700">Prompt Library for patterns</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 3: Platform Architecture -->
+            <div class="slide min-h-[70vh] flex-col justify-center">
+                <h2 class="text-4xl font-bold mb-8 gradient-text">Platform Architecture (Unified)</h2>
+                <div class="architecture-placeholder">
+                    <img src="platform-arch.png" alt="Platform Architecture Diagram" />
+                </div>
+                <div class="mt-8 bg-white rounded-xl p-6 shadow-md">
+                    <h3 class="text-xl font-semibold mb-4 text-slate-800">Key Architecture Ideas:</h3>
+                    <ul class="space-y-2 text-slate-700">
+                        <li>• AI drives discovery and generation, MCP exposes precise tools (parse, call, validate)</li>
+                        <li>• Strangler-fig rollout pattern: façade first, then expand coverage</li>
+                        <li>• Unified tooling layer for both VB6 and ABL legacy systems</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Slide 4: VB6 → REST Deep Dive -->
+            <div class="slide min-h-[70vh] flex-col justify-center">
+                <h2 class="text-4xl font-bold mb-8 gradient-text">Accelerator #1: VB6 → REST (Deep Dive)</h2>
+                <div class="bg-white rounded-xl p-6 shadow-md mb-6">
+                    <p class="text-lg text-slate-700 mb-4"><strong>Target:</strong> VB6 apps with business logic in .frm/.bas/.cls, data via ADODB/DAO</p>
+                </div>
+                <div class="space-y-4">
+                    <h3 class="text-2xl font-semibold text-slate-800 mb-4">Flow</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div class="bg-gradient-to-br from-purple-50 to-purple-100 p-4 rounded-lg">
+                            <div class="text-3xl font-bold text-purple-600 mb-2">1</div>
+                            <h4 class="font-semibold text-slate-800 mb-1">Inventory & Call Graph</h4>
+                            <p class="text-sm text-slate-600">VB6 MCP parses source; outputs callable candidates</p>
+                        </div>
+                        <div class="bg-gradient-to-br from-purple-50 to-purple-100 p-4 rounded-lg">
+                            <div class="text-3xl font-bold text-purple-600 mb-2">2</div>
+                            <h4 class="font-semibold text-slate-800 mb-1">Choose Endpoints</h4>
+                            <p class="text-sm text-slate-600">Cursor suggests top operations</p>
+                        </div>
+                        <div class="bg-gradient-to-br from-purple-50 to-purple-100 p-4 rounded-lg">
+                            <div class="text-3xl font-bold text-purple-600 mb-2">3</div>
+                            <h4 class="font-semibold text-slate-800 mb-1">OpenAPI Generation</h4>
+                            <p class="text-sm text-slate-600">Schemas inferred from code + metadata</p>
+                        </div>
+                        <div class="bg-gradient-to-br from-purple-50 to-purple-100 p-4 rounded-lg">
+                            <div class="text-3xl font-bold text-purple-600 mb-2">4</div>
+                            <h4 class="font-semibold text-slate-800 mb-1">API Scaffold</h4>
+                            <p class="text-sm text-slate-600">.NET 8 or Node boilerplate</p>
+                        </div>
+                        <div class="bg-gradient-to-br from-purple-50 to-purple-100 p-4 rounded-lg">
+                            <div class="text-3xl font-bold text-purple-600 mb-2">5</div>
+                            <h4 class="font-semibold text-slate-800 mb-1">Adapter</h4>
+                            <p class="text-sm text-slate-600">COM/CLI shim for marshaling</p>
+                        </div>
+                        <div class="bg-gradient-to-br from-purple-50 to-purple-100 p-4 rounded-lg">
+                            <div class="text-3xl font-bold text-purple-600 mb-2">6</div>
+                            <h4 class="font-semibold text-slate-800 mb-1">Tests & Observability</h4>
+                            <p class="text-sm text-slate-600">Integration tests with logging</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-6 bg-slate-100 rounded-lg p-4">
+                    <h4 class="font-semibold text-slate-800 mb-2">Prerequisites:</h4>
+                    <ul class="text-sm text-slate-600 space-y-1">
+                        <li>• Buildable VB6 project (or runnable COM/EXE for adapter)</li>
+                        <li>• Connection info for DB if needed; or seed dataset for demo</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Slide 5: VB6 Architecture Diagram -->
+            <div class="slide min-h-[70vh] flex-col justify-center">
+                <h2 class="text-4xl font-bold mb-8 gradient-text">VB6 Architecture Diagram</h2>
+                <div class="architecture-placeholder">
+                    <img src="vb6-diagram.png" alt="VB6 Architecture Diagram" />
+                </div>
+            </div>
+
+            <!-- Slide 6: VB6 Example -->
+            <div class="slide min-h-[70vh] flex-col justify-center">
+                <h2 class="text-4xl font-bold mb-8 gradient-text">VB6 Example (End-to-End)</h2>
+                <div class="bg-white rounded-xl p-6 shadow-md mb-6">
+                    <p class="text-lg text-slate-700"><strong>Use-case:</strong> Expose invoice lookup from VB6 module modBilling.GetInvoiceById(id as Long)</p>
+                </div>
+                
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="text-lg font-semibold text-slate-800 mb-3">Prompt (Cursor):</h3>
+                        <div class="code-block p-4 text-sm overflow-x-auto">
+                            <pre># Build a call graph of public routines. Identify API-safe functions 
+# (pure or constrained side-effects). Propose endpoints and schemas. 
+# Output a table: Function | Inputs | Outputs | Side Effects | Endpoint | Risk.</pre>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-lg font-semibold text-slate-800 mb-3">OpenAPI Snippet:</h3>
+                        <div class="code-block p-4 text-sm overflow-x-auto">
+                            <pre>paths:
+  /invoices/{id}:
+    get:
+      summary: Get invoice by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Invoice' }</pre>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-lg font-semibold text-slate-800 mb-3">Adapter Contract (C#):</h3>
+                        <div class="code-block p-4 text-sm overflow-x-auto">
+                            <pre>public InvoiceDto GetInvoiceById(int id) {
+    var result = Vb6Shim.Invoke("modBilling", "GetInvoiceById", id);
+    return MapToDto(result);
+}</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 7: VB6 MCP Tools -->
+            <div class="slide min-h-[70vh] flex-col justify-center">
+                <h2 class="text-4xl font-bold mb-8 gradient-text">VB6 MCP Tools (Examples)</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <div class="bg-white rounded-xl p-6 shadow-md">
+                        <h3 class="text-lg font-semibold text-purple-700 mb-3">vb6.parse_project</h3>
+                        <p class="text-sm text-slate-600 mb-2"><strong>Inputs:</strong> root path</p>
+                        <p class="text-sm text-slate-600"><strong>Outputs:</strong> modules, public routines, params, return types, global state, DB touch-points</p>
+                    </div>
+                    <div class="bg-white rounded-xl p-6 shadow-md">
+                        <h3 class="text-lg font-semibold text-purple-700 mb-3">vb6.call</h3>
+                        <p class="text-sm text-slate-600 mb-2"><strong>Inputs:</strong> module, routine, arguments (JSON)</p>
+                        <p class="text-sm text-slate-600"><strong>Behavior:</strong> dispatch via COM or CLI host; marshal to JSON</p>
+                    </div>
+                    <div class="bg-white rounded-xl p-6 shadow-md">
+                        <h3 class="text-lg font-semibold text-purple-700 mb-3">vb6.schema_from_recordset</h3>
+                        <p class="text-sm text-slate-600">Inspect ADODB recordset to infer JSON schema for OpenAPI components</p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-semibold text-slate-800 mb-4">Cursor Rules (Excerpt)</h3>
+                    <div class="code-block p-4 text-sm">
+                        <pre>validation:
+  request: fluentvalidation (C#) or zod (Node)
+errors:
+  shape: { code, message, details?, correlationId }
+logging:
+  fields: timestamp, requestId, user, endpoint, latencyMs
+security:
+  auth: bearer or mTLS (stub for demo)</pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 8: ABL → REST Deep Dive -->
+            <div class="slide min-h-[70vh] flex-col justify-center">
+                <h2 class="text-4xl font-bold mb-8 gradient-text">Accelerator #2: Progress (ABL) → REST</h2>
+                <div class="bg-white rounded-xl p-6 shadow-md mb-6">
+                    <p class="text-lg text-slate-700 mb-4"><strong>Target:</strong> ABL procedures, temp-tables/datasets; REST via PASOE or modern façade</p>
+                </div>
+                
+                <div class="space-y-4">
+                    <h3 class="text-2xl font-semibold text-slate-800 mb-4">Flow</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div class="bg-gradient-to-br from-indigo-50 to-indigo-100 p-4 rounded-lg">
+                            <div class="text-3xl font-bold text-indigo-600 mb-2">1</div>
+                            <h4 class="font-semibold text-slate-800 mb-1">Procedure Discovery</h4>
+                            <p class="text-sm text-slate-600">ABL MCP lists procedures, params, datasets</p>
+                        </div>
+                        <div class="bg-gradient-to-br from-indigo-50 to-indigo-100 p-4 rounded-lg">
+                            <div class="text-3xl font-bold text-indigo-600 mb-2">2</div>
+                            <h4 class="font-semibold text-slate-800 mb-1">Endpoint Planning</h4>
+                            <p class="text-sm text-slate-600">Choose top use-cases</p>
+                        </div>
+                        <div class="bg-gradient-to-br from-indigo-50 to-indigo-100 p-4 rounded-lg">
+                            <div class="text-3xl font-bold text-indigo-600 mb-2">3</div>
+                            <h4 class="font-semibold text-slate-800 mb-1">OpenAPI Generation</h4>
+                            <p class="text-sm text-slate-600">Infer schemas from temp-tables</p>
+                        </div>
+                        <div class="bg-gradient-to-br from-indigo-50 to-indigo-100 p-4 rounded-lg">
+                            <div class="text-3xl font-bold text-indigo-600 mb-2">4</div>
+                            <h4 class="font-semibold text-slate-800 mb-1">Handler Path A</h4>
+                            <p class="text-sm text-slate-600">PASOE REST handlers (native)</p>
+                        </div>
+                        <div class="bg-gradient-to-br from-indigo-50 to-indigo-100 p-4 rounded-lg">
+                            <div class="text-3xl font-bold text-indigo-600 mb-2">4</div>
+                            <h4 class="font-semibold text-slate-800 mb-1">Handler Path B</h4>
+                            <p class="text-sm text-slate-600">.NET/Node façade</p>
+                        </div>
+                        <div class="bg-gradient-to-br from-indigo-50 to-indigo-100 p-4 rounded-lg">
+                            <div class="text-3xl font-bold text-indigo-600 mb-2">5</div>
+                            <h4 class="font-semibold text-slate-800 mb-1">Tests & Observability</h4>
+                            <p class="text-sm text-slate-600">Integration tests with logging</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 9: ABL Architecture Diagram -->
+            <div class="slide min-h-[70vh] flex-col justify-center">
+                <h2 class="text-4xl font-bold mb-8 gradient-text">ABL Architecture Diagram</h2>
+                <div class="architecture-placeholder">
+                    <img src="pasoe-rest.png" alt="ABL Architecture Diagram" />
+                </div>
+            </div>
+
+            <!-- Slide 10: ABL Example -->
+            <div class="slide min-h-[70vh] flex-col justify-center">
+                <h2 class="text-4xl font-bold mb-8 gradient-text">ABL Example (End-to-End)</h2>
+                <div class="bg-white rounded-xl p-6 shadow-md mb-6">
+                    <p class="text-lg text-slate-700"><strong>Use-case:</strong> Expose getCustomerById that fills a temp-table and returns one row</p>
+                </div>
+
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="text-lg font-semibold text-slate-800 mb-3">Prompt (Cursor):</h3>
+                        <div class="code-block p-4 text-sm">
+                            <pre># Parse procedures and temp-tables. Propose REST endpoints with schemas. 
+# Generate PASOE handler or façade method with mapping code and tests.</pre>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-lg font-semibold text-slate-800 mb-3">OpenAPI Snippet:</h3>
+                        <div class="code-block p-4 text-sm">
+                            <pre>paths:
+  /customers/{id}:
+    get:
+      summary: Get customer by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Customer
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Customer' }</pre>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-lg font-semibold text-slate-800 mb-3">Handler Sketch (ABL):</h3>
+                        <div class="code-block p-4 text-sm">
+                            <pre>RUN getCustomerById(INPUT pId, OUTPUT TABLE ttCustomer).
+RESPONSE:WriteJson(BUFFER ttCustomer:HANDLE).</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 11: ABL MCP Tools -->
+            <div class="slide min-h-[70vh] flex-col justify-center">
+                <h2 class="text-4xl font-bold mb-8 gradient-text">ABL MCP Tools (Examples)</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <div class="bg-white rounded-xl p-6 shadow-md">
+                        <h3 class="text-lg font-semibold text-indigo-700 mb-3">abl.parse_workspace</h3>
+                        <p class="text-sm text-slate-600">Procedures, params, temp-tables, datasets</p>
+                    </div>
+                    <div class="bg-white rounded-xl p-6 shadow-md">
+                        <h3 class="text-lg font-semibold text-indigo-700 mb-3">abl.schema_from_temptable</h3>
+                        <p class="text-sm text-slate-600">Infer JSON schema for OpenAPI components</p>
+                    </div>
+                    <div class="bg-white rounded-xl p-6 shadow-md">
+                        <h3 class="text-lg font-semibold text-indigo-700 mb-3">abl.pasoe_call</h3>
+                        <p class="text-sm text-slate-600">Invoke PASOE endpoint for integration tests</p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-semibold text-slate-800 mb-4">Cursor Rules (Excerpt)</h3>
+                    <div class="code-block p-4 text-sm">
+                        <pre>mapping:
+  nulls: explicit
+  enums: string + x-enum-varnames
+  dates: ISO8601 (UTC)
+http:
+  pagination: offset+limit
+  errors: Problem+JSON (RFC7807)</pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 12: Side-by-Side Comparison -->
+            <div class="slide min-h-[70vh] flex-col justify-center">
+                <h2 class="text-4xl font-bold mb-8 gradient-text">Side-by-Side Comparison</h2>
+                <div class="overflow-x-auto">
+                    <table class="w-full table-modern rounded-lg overflow-hidden shadow-lg">
+                        <thead>
+                            <tr>
+                                <th class="px-6 py-3 text-left">Aspect</th>
+                                <th class="px-6 py-3 text-left">VB6 Accelerator</th>
+                                <th class="px-6 py-3 text-left">ABL Accelerator</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white">
+                            <tr>
+                                <td class="px-6 py-4 font-semibold">Discovery</td>
+                                <td class="px-6 py-4">Parse FRM/BAS/CLS, call graph, recordset schema</td>
+                                <td class="px-6 py-4">Parse procedures, temp-tables/datasets</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 font-semibold">Quickest Path</td>
+                                <td class="px-6 py-4">COM/CLI shim to surface routines</td>
+                                <td class="px-6 py-4">PASOE REST handlers or façade</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 font-semibold">Scaffold</td>
+                                <td class="px-6 py-4">.NET 8 or Node controllers + DTOs</td>
+                                <td class="px-6 py-4">PASOE handlers or .NET/Node façade</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 font-semibold">Data</td>
+                                <td class="px-6 py-4">ADODB/DAO → JSON</td>
+                                <td class="px-6 py-4">temp-tables/datasets → JSON</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 font-semibold">Tests</td>
+                                <td class="px-6 py-4">Adapter-backed integration tests</td>
+                                <td class="px-6 py-4">PASOE/ABL-backed integration tests</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 font-semibold">Risks</td>
+                                <td class="px-6 py-4">Global state/side-effects</td>
+                                <td class="px-6 py-4">Long-running transactions/locks</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Slide 13: Strangler Rollout -->
+            <div class="slide min-h-[70vh] flex-col justify-center">
+                <h2 class="text-4xl font-bold mb-8 gradient-text">Strangler Rollout & Governance</h2>
+                
+                <div class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div class="bg-white rounded-xl p-6 shadow-md text-center">
+                            <div class="text-4xl font-bold text-purple-600 mb-2">1</div>
+                            <h3 class="text-lg font-semibold text-slate-800 mb-2">Read-Only First</h3>
+                            <p class="text-sm text-slate-600">Start with read endpoints, measure latency</p>
+                        </div>
+                        <div class="bg-white rounded-xl p-6 shadow-md text-center">
+                            <div class="text-4xl font-bold text-purple-600 mb-2">2</div>
+                            <h3 class="text-lg font-semibold text-slate-800 mb-2">Add Writes</h3>
+                            <p class="text-sm text-slate-600">With idempotency and rollback strategy</p>
+                        </div>
+                        <div class="bg-white rounded-xl p-6 shadow-md text-center">
+                            <div class="text-4xl font-bold text-purple-600 mb-2">3</div>
+                            <h3 class="text-lg font-semibold text-slate-800 mb-2">Capture Coverage</h3>
+                            <p class="text-sm text-slate-600">Functions exposed and defect rate</p>
+                        </div>
+                        <div class="bg-white rounded-xl p-6 shadow-md text-center">
+                            <div class="text-4xl font-bold text-purple-600 mb-2">4</div>
+                            <h3 class="text-lg font-semibold text-slate-800 mb-2">Gradual Migration</h3>
+                            <p class="text-sm text-slate-600">Keep legacy stable behind façade</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-gradient-to-r from-purple-100 to-indigo-100 rounded-xl p-6">
+                        <h3 class="text-xl font-semibold text-slate-800 mb-4">Key Performance Indicators</h3>
+                        <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+                            <div class="text-center">
+                                <p class="text-2xl font-bold text-purple-700">⏱️</p>
+                                <p class="text-sm text-slate-700">Time to First Endpoint</p>
+                            </div>
+                            <div class="text-center">
+                                <p class="text-2xl font-bold text-purple-700">📊</p>
+                                <p class="text-sm text-slate-700">Endpoint Coverage %</p>
+                            </div>
+                            <div class="text-center">
+                                <p class="text-2xl font-bold text-purple-700">⚡</p>
+                                <p class="text-sm text-slate-700">Mean Response Time</p>
+                            </div>
+                            <div class="text-center">
+                                <p class="text-2xl font-bold text-purple-700">❌</p>
+                                <p class="text-sm text-slate-700">Error Rates</p>
+                            </div>
+                            <div class="text-center">
+                                <p class="text-2xl font-bold text-purple-700">🔧</p>
+                                <p class="text-sm text-slate-700">MTTR</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 14: Developer Experience -->
+            <div class="slide min-h-[70vh] flex-col justify-center">
+                <h2 class="text-4xl font-bold mb-8 gradient-text">Developer Experience (Cursor CLI)</h2>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-2xl font-semibold text-slate-800 mb-4">Typical Commands</h3>
+                        <div class="code-block p-4 text-sm">
+                            <pre>cursor run inventory:vb6        # parse & map
+cursor run openapi:generate     # produce /api/openapi.yaml
+cursor run scaffold:dotnet      # or scaffold:node
+cursor run adapter:vb6          # COM/CLI
+cursor run tests:integration    
+cursor run inventory:abl        
+cursor run adapter:abl-pasoe</pre>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-semibold text-slate-800 mb-4">Artifacts Produced</h3>
+                        <div class="bg-white rounded-xl p-6 shadow-md">
+                            <ul class="space-y-2 text-slate-700">
+                                <li class="flex items-start">
+                                    <span class="text-green-500 mr-2">📄</span>
+                                    <span>/docs/architecture.md (maps, risks)</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-green-500 mr-2">📄</span>
+                                    <span>/api/openapi.yaml</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-green-500 mr-2">📁</span>
+                                    <span>/api/src/... (controllers, DTOs)</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-green-500 mr-2">📁</span>
+                                    <span>/adapters/... (vb6-shim, abl-client)</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-green-500 mr-2">📁</span>
+                                    <span>/tests/integration/...</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 15: Prompt Library -->
+            <div class="slide min-h-[70vh] flex-col justify-center">
+                <h2 class="text-4xl font-bold mb-8 gradient-text">Prompt Library (Selected)</h2>
+                
+                <div class="space-y-6">
+                    <div class="bg-white rounded-xl p-6 shadow-md">
+                        <h3 class="text-lg font-semibold text-purple-700 mb-3">1) Code Archaeology (VB6)</h3>
+                        <div class="code-block p-4 text-sm">
+                            <pre># You are a code archaeologist. From FRM/BAS/CLS, build a call graph. 
+# Flag global state and file/registry I/O. Propose API-safe candidates 
+# with inferred input/output types and risk notes. Output a table.</pre>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl p-6 shadow-md">
+                        <h3 class="text-lg font-semibold text-indigo-700 mb-3">2) OpenAPI Synthesis (Common)</h3>
+                        <div class="code-block p-4 text-sm">
+                            <pre># From candidates, generate OpenAPI 3.1 with components and examples. 
+# Use RFC7807 for errors, ISO8601 UTC times, explicit nulls, 
+# and pagination (offset/limit).</pre>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl p-6 shadow-md">
+                        <h3 class="text-lg font-semibold text-purple-700 mb-3">3) Adapter Generation (VB6)</h3>
+                        <div class="code-block p-4 text-sm">
+                            <pre># Create a COM/CLI adapter that marshals inputs/outputs to JSON, 
+# normalizes error codes, and returns correlationId.</pre>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl p-6 shadow-md">
+                        <h3 class="text-lg font-semibold text-indigo-700 mb-3">4) PASOE Mapping (ABL)</h3>
+                        <div class="code-block p-4 text-sm">
+                            <pre># Generate ABL handler or façade mapping from temp-tables/datasets 
+# to DTOs. Include tests that call PASOE and validate JSON contracts.</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 16: Cursor Rules -->
+            <div class="slide min-h-[70vh] flex-col justify-center">
+                <h2 class="text-4xl font-bold mb-8 gradient-text">Cursor Rules (Excerpt)</h2>
+                
+                <div class="code-block p-6 text-sm overflow-x-auto">
+                    <pre>api:
+  style: rest
+  versioning: url (v1) or header
+  pagination: offset-limit; cap=500; default=50
+  contentType: application/json
+
+security:
+  auth: bearer (stub); roles: reader, editor
+  validation:
+    numeric: bounds; dates: ISO8601
+
+errors:
+  format: application/problem+json
+  required: code, message, correlationId
+
+observability:
+  logFields: requestId, user, endpoint, latencyMs, outcome
+  metrics: rps, p95 latency, errorRate</pre>
+                </div>
+            </div>
+
+            <!-- Slide 17: End-to-End Demos -->
+            <div class="slide min-h-[70vh] flex-col justify-center">
+                <h2 class="text-4xl font-bold mb-8 gradient-text">Example End-to-End Demos</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-white rounded-xl p-8 shadow-lg border-t-4 border-purple-500">
+                        <h3 class="text-2xl font-bold mb-4 text-purple-700">VB6 Demo</h3>
+                        <div class="mb-4">
+                            <p class="text-sm text-slate-600 mb-2"><strong>Endpoint:</strong></p>
+                            <p class="font-mono text-sm bg-slate-100 p-2 rounded">GET /invoices/{id} → modBilling.GetInvoiceById</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-slate-600 mb-2"><strong>Shows:</strong></p>
+                            <ul class="text-sm text-slate-700 space-y-1">
+                                <li>• Call graph analysis</li>
+                                <li>• OpenAPI generation</li>
+                                <li>• Controller creation</li>
+                                <li>• COM shim integration</li>
+                                <li>• Test passing ✅</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-xl p-8 shadow-lg border-t-4 border-indigo-500">
+                        <h3 class="text-2xl font-bold mb-4 text-indigo-700">ABL Demo</h3>
+                        <div class="mb-4">
+                            <p class="text-sm text-slate-600 mb-2"><strong>Endpoint:</strong></p>
+                            <p class="font-mono text-sm bg-slate-100 p-2 rounded">GET /customers/{id} → PASOE handler</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-slate-600 mb-2"><strong>Shows:</strong></p>
+                            <ul class="text-sm text-slate-700 space-y-1">
+                                <li>• Procedure parsing</li>
+                                <li>• Schema inference</li>
+                                <li>• OpenAPI creation</li>
+                                <li>• Handler generation</li>
+                                <li>• Test passing ✅</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 18: Security, Testing & Ops -->
+            <div class="slide min-h-[70vh] flex-col justify-center">
+                <h2 class="text-4xl font-bold mb-8 gradient-text">Security, Testing & Ops</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white rounded-xl p-6 shadow-md">
+                        <div class="text-3xl mb-4">🔒</div>
+                        <h3 class="text-xl font-semibold mb-3 text-slate-800">Security</h3>
+                        <ul class="text-sm text-slate-600 space-y-2">
+                            <li>• Bearer token (stub)</li>
+                            <li>• Input validation</li>
+                            <li>• Output shaping</li>
+                            <li>• PII redaction</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-white rounded-xl p-6 shadow-md">
+                        <div class="text-3xl mb-4">🧪</div>
+                        <h3 class="text-xl font-semibold mb-3 text-slate-800">Testing</h3>
+                        <ul class="text-sm text-slate-600 space-y-2">
+                            <li>• Unit tests for mapping</li>
+                            <li>• Integration for adapters</li>
+                            <li>• Golden files for JSON</li>
+                            <li>• Contract testing</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-white rounded-xl p-6 shadow-md">
+                        <div class="text-3xl mb-4">⚙️</div>
+                        <h3 class="text-xl font-semibold mb-3 text-slate-800">Operations</h3>
+                        <ul class="text-sm text-slate-600 space-y-2">
+                            <li>• Containerize façade</li>
+                            <li>• CI with cursor tasks</li>
+                            <li>• Artifact versioning</li>
+                            <li>• Monitoring & alerts</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 19: What You Get -->
+            <div class="slide min-h-[70vh] flex-col justify-center">
+                <h2 class="text-4xl font-bold mb-8 gradient-text">What You Get (Accelerator Contents)</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="feature-card p-6 rounded-xl">
+                        <div class="text-3xl mb-4">🤖</div>
+                        <h3 class="text-xl font-semibold mb-2 text-slate-800">Cursor CLI Agent</h3>
+                        <p class="text-slate-600">Tasks + runners orchestrating the entire flow</p>
+                    </div>
+                    
+                    <div class="feature-card p-6 rounded-xl">
+                        <div class="text-3xl mb-4">🔧</div>
+                        <h3 class="text-xl font-semibold mb-2 text-slate-800">Custom MCP Servers</h3>
+                        <p class="text-slate-600">VB6 parser & adapter, ABL parser & PASOE/ABL adapter</p>
+                    </div>
+                    
+                    <div class="feature-card p-6 rounded-xl">
+                        <div class="text-3xl mb-4">📏</div>
+                        <h3 class="text-xl font-semibold mb-2 text-slate-800">Cursor Rules Pack</h3>
+                        <p class="text-slate-600">API style, errors, logging, validation standards</p>
+                    </div>
+                    
+                    <div class="feature-card p-6 rounded-xl">
+                        <div class="text-3xl mb-4">📝</div>
+                        <h3 class="text-xl font-semibold mb-2 text-slate-800">Prompt Library</h3>
+                        <p class="text-slate-600">Archaeology, OpenAPI, scaffolding, adapters, tests</p>
+                    </div>
+                    
+                    <div class="feature-card p-6 rounded-xl md:col-span-2">
+                        <div class="text-3xl mb-4">🚀</div>
+                        <h3 class="text-xl font-semibold mb-2 text-slate-800">Starter Repos</h3>
+                        <p class="text-slate-600">VB6 & ABL demo projects wired for live showcase</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 20: Next Steps -->
+            <div class="slide min-h-[70vh] flex-col justify-center">
+                <h2 class="text-4xl font-bold mb-8 gradient-text">Next Steps (For the Prospect)</h2>
+                
+                <div class="space-y-6">
+                    <div class="bg-white rounded-xl p-8 shadow-lg">
+                        <div class="flex items-center mb-6">
+                            <div class="text-4xl font-bold text-purple-600 mr-4">1</div>
+                            <div>
+                                <h3 class="text-2xl font-semibold text-slate-800">Pick a Pilot</h3>
+                                <p class="text-slate-600">Select a function/procedure with clear business value</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-xl p-8 shadow-lg">
+                        <div class="flex items-center mb-6">
+                            <div class="text-4xl font-bold text-indigo-600 mr-4">2</div>
+                            <div>
+                                <h3 class="text-2xl font-semibold text-slate-800">Half-Day Discovery</h3>
+                                <p class="text-slate-600">We run discovery and ship first endpoint with tests</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-xl p-8 shadow-lg">
+                        <div class="flex items-center mb-6">
+                            <div class="text-4xl font-bold text-green-600 mr-4">3</div>
+                            <div>
+                                <h3 class="text-2xl font-semibold text-slate-800">Expand Coverage</h3>
+                                <p class="text-slate-600">Iteratively grow under the façade with governance & KPIs</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-8 text-center">
+                    <button class="px-8 py-4 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-lg text-lg font-semibold hover:from-purple-700 hover:to-indigo-700 transition shadow-lg">
+                        Let's Get Started
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Progress Bar -->
+    <div class="fixed bottom-0 left-0 right-0 h-1 bg-gray-200">
+        <div id="progressBar" class="h-full bg-gradient-to-r from-purple-600 to-indigo-600 transition-all duration-300" style="width: 5%;"></div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[index].classList.add('active');
+            
+            // Update slide number
+            document.getElementById('slideNumber').textContent = `${index + 1} / ${totalSlides}`;
+            
+            // Update progress bar
+            const progress = ((index + 1) / totalSlides) * 100;
+            document.getElementById('progressBar').style.width = `${progress}%`;
+
+            // (Mermaid rendering removed; using static image)
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                currentSlide++;
+                showSlide(currentSlide);
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                showSlide(currentSlide);
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                prevSlide();
+            }
+        });
+
+        // Touch/swipe support for mobile
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        document.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            if (touchEndX < touchStartX - 50) {
+                nextSlide();
+            }
+            if (touchEndX > touchStartX + 50) {
+                prevSlide();
+            }
+        }
+    </script>
+</body>
+</html>
