@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SynGen AI — R Systems</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    html, body { height: 100%; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; }
+    .slide { min-height: 100vh; }
+    .gradient-bg { background: radial-gradient(60% 60% at 70% 10%, rgba(59,130,246,.18) 0%, rgba(59,130,246,0) 60%),
+                               radial-gradient(50% 50% at 10% 60%, rgba(99,102,241,.20) 0%, rgba(99,102,241,0) 60%),
+                               linear-gradient(180deg, #0b1020 0%, #0b122a 100%); }
+    .glass { backdrop-filter: blur(8px); background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04)); border: 1px solid rgba(255,255,255,0.08); }
+    .kbd { border: 1px solid rgba(255,255,255,0.2); border-bottom-width: 3px; border-radius: .5rem; padding: .1rem .4rem; background: rgba(255,255,255,.06); }
+    @media print { 
+      .nav, .progress, .help, .thumbs { display: none !important; }
+      .slide { page-break-after: always; min-height: auto; }
+      body { background: #fff !important; color: #111 !important; }
+      .gradient-bg, .glass { background: #fff !important; }
+    }
+  </style>
+</head>
+<body class="gradient-bg text-white">
+  <!-- Top Bar -->
+  <header class="nav fixed top-0 left-0 right-0 z-40 flex items-center justify-between px-6 py-4 bg-gradient-to-b from-black/40 to-transparent">
+    <div class="flex items-center gap-3">
+      <div class="h-8 w-8 rounded-xl bg-white/10 flex items-center justify-center ring-1 ring-white/15">⚙️</div>
+      <div class="leading-tight">
+        <div class="text-sm text-white/70">R Systems Accelerator</div>
+        <div class="font-semibold">SynGen AI — Synthetic Data Generation</div>
+      </div>
+    </div>
+    <div class="hidden sm:flex items-center gap-4 text-xs text-white/70 help">
+      <span class="hidden md:inline">Navigate with</span>
+      <span class="kbd">←</span>
+      <span class="kbd">→</span>
+      <span class="hidden md:inline"> · Toggle overview</span>
+      <span class="kbd">O</span>
+      <span class="hidden md:inline"> · Dark/Light</span>
+      <span class="kbd">D</span>
+      <span class="hidden md:inline"> · Print</span>
+      <span class="kbd">⌘/Ctrl + P</span>
+    </div>
+  </header>
+
+  <!-- Slides Wrapper -->
+  <main id="deck" class="snap-y snap-mandatory overflow-x-hidden overflow-y-auto h-screen scroll-smooth">
+
+    <!-- Slide 1: Title / Cold Open -->
+    <section class="slide snap-start flex items-center justify-center px-6">
+      <div class="max-w-6xl w-full grid lg:grid-cols-2 gap-10 items-center">
+        <div>
+          <div class="inline-flex items-center gap-2 text-xs tracking-widest uppercase text-white/70">R Systems · Accelerator</div>
+          <h1 class="mt-3 text-4xl md:text-6xl font-extrabold leading-tight">SynGen AI
+            <span class="block text-2xl md:text-3xl font-semibold text-white/70">Synthetic Data Generation Framework</span>
+          </h1>
+          <p class="mt-6 text-white/80 text-lg">AI agents that understand your enterprise schemas and generate realistic, privacy-safe data—at scale—for ML training, performance testing, and seeding lower environments.</p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <span class="px-3 py-1 rounded-full bg-indigo-500/20 ring-1 ring-indigo-400/30 text-indigo-200 text-sm">MCP-powered schema discovery</span>
+            <span class="px-3 py-1 rounded-full bg-sky-500/20 ring-1 ring-sky-400/30 text-sky-200 text-sm">Distribution-aware generation</span>
+            <span class="px-3 py-1 rounded-full bg-emerald-500/20 ring-1 ring-emerald-400/30 text-emerald-200 text-sm">Compliance-first by design</span>
+          </div>
+        </div>
+        <div class="glass rounded-3xl p-6 md:p-8 shadow-2xl">
+          <h3 class="text-xl font-semibold">Why now?</h3>
+          <ul class="mt-4 space-y-3 text-white/90">
+            <li class="flex gap-3"><span>•</span> Data is sensitive, siloed, or scarce across ML, testing, and staging.</li>
+            <li class="flex gap-3"><span>•</span> Lower environments need realistic volumes without privacy risk.</li>
+            <li class="flex gap-3"><span>•</span> Synthetic data unlocks velocity—without copying production.</li>
+          </ul>
+          <div class="mt-6 grid grid-cols-3 gap-3 text-center">
+            <div class="p-3 rounded-xl bg-white/5 ring-1 ring-white/10">
+              <div class="text-2xl font-bold">3×</div>
+              <div class="text-xs text-white/70">Faster test cycles*</div>
+            </div>
+            <div class="p-3 rounded-xl bg-white/5 ring-1 ring-white/10">
+              <div class="text-2xl font-bold">0 PII</div>
+              <div class="text-xs text-white/70">Privacy-safe by design</div>
+            </div>
+            <div class="p-3 rounded-xl bg-white/5 ring-1 ring-white/10">
+              <div class="text-2xl font-bold">∞</div>
+              <div class="text-xs text-white/70">Scales to load tests</div>
+            </div>
+          </div>
+          <p class="mt-3 text-[11px] text-white/50">*Illustrative; depends on environment & scope.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 2: The Challenge -->
+    <section class="slide snap-start flex items-center px-6">
+      <div class="max-w-6xl mx-auto w-full">
+        <h2 class="text-3xl md:text-5xl font-extrabold">The Challenge</h2>
+        <p class="mt-3 text-white/80 max-w-3xl">Enterprises must support diverse data needs across teams while protecting privacy and keeping pace with delivery.</p>
+        <div class="mt-8 grid md:grid-cols-3 gap-5">
+          <div class="glass rounded-2xl p-5">
+            <div class="text-sm uppercase tracking-widest text-white/60">AI/ML Training</div>
+            <h3 class="mt-1 text-xl font-semibold">Representative & labeled data</h3>
+            <ul class="mt-3 space-y-2 text-white/85 text-sm">
+              <li>• Preserve distributions without copying PII</li>
+              <li>• Balance class skew; add rare cases</li>
+              <li>• Reproducible data recipes</li>
+            </ul>
+          </div>
+          <div class="glass rounded-2xl p-5">
+            <div class="text-sm uppercase tracking-widest text-white/60">Performance Testing</div>
+            <h3 class="mt-1 text-xl font-semibold">High-volume, realistic loads</h3>
+            <ul class="mt-3 space-y-2 text-white/85 text-sm">
+              <li>• Tunable scale factors</li>
+              <li>• Hot paths & heavy-join scenarios</li>
+              <li>• Referential integrity at volume</li>
+            </ul>
+          </div>
+          <div class="glass rounded-2xl p-5">
+            <div class="text-sm uppercase tracking-widest text-white/60">Lower Environments</div>
+            <h3 class="mt-1 text-xl font-semibold">Safe, representative datasets</h3>
+            <ul class="mt-3 space-y-2 text-white/85 text-sm">
+              <li>• No leakage from prod</li>
+              <li>• Seed CI, staging, sandboxes</li>
+              <li>• Environment-specific recipes</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 3: Introducing SynGen AI / Architecture-lite -->
+    <section class="slide snap-start flex items-center px-6">
+      <div class="max-w-6xl mx-auto w-full">
+        <h2 class="text-3xl md:text-5xl font-extrabold">Introducing SynGen AI</h2>
+        <p class="mt-3 text-white/80 max-w-4xl">AI agents discover schemas via MCP servers and metadata scanning, blueprint generation logic, and output execution-ready seeding scripts.</p>
+
+        <div class="mt-8 grid lg:grid-cols-3 gap-5">
+          <div class="glass rounded-2xl p-5">
+            <div class="text-sm uppercase tracking-widest text-white/60">1 · Schema Understanding</div>
+            <h3 class="mt-1 text-xl font-semibold">MCP + Metadata Graph</h3>
+            <ul class="mt-3 space-y-2 text-white/85 text-sm">
+              <li>• Connectors: DBs, ERDs, catalogs</li>
+              <li>• Entity/relationship extraction</li>
+              <li>• Constraint & lineage capture</li>
+            </ul>
+          </div>
+          <div class="glass rounded-2xl p-5">
+            <div class="text-sm uppercase tracking-widest text-white/60">2 · Data Blueprinting</div>
+            <h3 class="mt-1 text-xl font-semibold">Distribution-aware Plans</h3>
+            <ul class="mt-3 space-y-2 text-white/85 text-sm">
+              <li>• Statistical profiles & correlations</li>
+              <li>• Business rules & referential integrity</li>
+              <li>• Bias control & edge-case injection</li>
+            </ul>
+          </div>
+          <div class="glass rounded-2xl p-5">
+            <div class="text-sm uppercase tracking-widest text-white/60">3 · Data Generation</div>
+            <h3 class="mt-1 text-xl font-semibold">Executable Seeding Scripts</h3>
+            <ul class="mt-3 space-y-2 text-white/85 text-sm">
+              <li>• SQL/DBT/CSV/Parquet outputs</li>
+              <li>• Scale knobs for load testing</li>
+              <li>• Validations & quality gates</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="mt-6 grid md:grid-cols-3 gap-4 text-sm">
+          <div class="px-4 py-3 rounded-xl bg-emerald-500/15 ring-1 ring-emerald-400/30">Privacy-safe tokens & masking utilities</div>
+          <div class="px-4 py-3 rounded-xl bg-sky-500/15 ring-1 ring-sky-400/30">Recipe versioning & reproducibility</div>
+          <div class="px-4 py-3 rounded-xl bg-indigo-500/15 ring-1 ring-indigo-400/30">GitOps-friendly CLI & CI hooks</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 4: Case Study — Insurance Software -->
+    <section class="slide snap-start flex items-center px-6">
+      <div class="max-w-6xl mx-auto w-full">
+        <h2 class="text-3xl md:text-5xl font-extrabold">Case Study · Insurance Software</h2>
+        <p class="mt-3 text-white/80 max-w-4xl">Global policy administration vendor needed privacy-safe datasets to performance test a new microservices release and enable ML-based fraud scoring experiments—without copying production.</p>
+        <div class="mt-8 grid lg:grid-cols-3 gap-5">
+          <div class="glass rounded-2xl p-5">
+            <div class="text-sm uppercase tracking-widest text-white/60">Scope</div>
+            <ul class="mt-3 space-y-2 text-white/85 text-sm">
+              <li>• 120+ entities (Policies, Claims, Endorsements, FNOL)</li>
+              <li>• Referential integrity across 1.6k FKs</li>
+              <li>• 5 TB synthetic volume for load tests</li>
+            </ul>
+          </div>
+          <div class="glass rounded-2xl p-5">
+            <div class="text-sm uppercase tracking-widest text-white/60">Approach</div>
+            <ul class="mt-3 space-y-2 text-white/85 text-sm">
+              <li>• MCP connectors to ERWin + Snowflake catalog</li>
+              <li>• Blueprinted loss ratios, seasonality, fraud patterns</li>
+              <li>• Output: SQL & Parquet with dbt seeds</li>
+            </ul>
+          </div>
+          <div class="glass rounded-2xl p-5">
+            <div class="text-sm uppercase tracking-widest text-white/60">Impact</div>
+            <ul class="mt-3 space-y-2 text-white/85 text-sm">
+              <li>• 42% faster performance test cycles</li>
+              <li>• 0 PII exposure for UAT/staging</li>
+              <li>• 18% lift in fraud model recall (A/B on synthetic)</li>
+            </ul>
+          </div>
+        </div>
+        <div class="mt-6 grid md:grid-cols-3 gap-4 text-sm">
+          <div class="px-4 py-3 rounded-xl bg-indigo-500/15 ring-1 ring-indigo-400/30">Lines of business: Motor, Health, P&C</div>
+          <div class="px-4 py-3 rounded-xl bg-emerald-500/15 ring-1 ring-emerald-400/30">Masked IDs, realistic claim narratives</div>
+          <div class="px-4 py-3 rounded-xl bg-sky-500/15 ring-1 ring-sky-400/30">Kafka topics for FNOL event streams</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 5: Case Study — Digital Healthcare -->
+    <section class="slide snap-start flex items-center px-6">
+      <div class="max-w-6xl mx-auto w-full">
+        <h2 class="text-3xl md:text-5xl font-extrabold">Case Study · Digital Healthcare</h2>
+        <p class="mt-3 text-white/80 max-w-4xl">Virtual care platform needed HIPAA-safe data to seed lower environments, test HL7/FHIR integrations, and train triage models on rare conditions.</p>
+        <div class="mt-8 grid lg:grid-cols-3 gap-5">
+          <div class="glass rounded-2xl p-5">
+            <div class="text-sm uppercase tracking-widest text-white/60">Scope</div>
+            <ul class="mt-3 space-y-2 text-white/85 text-sm">
+              <li>• FHIR R4 resources: Patient, Encounter, Observation, Claim</li>
+              <li>• 50M synthetic observations; ICD-10 coverage</li>
+              <li>• HL7 v2 ADT/ORU message streams</li>
+            </ul>
+          </div>
+          <div class="glass rounded-2xl p-5">
+            <div class="text-sm uppercase tracking-widest text-white/60">Approach</div>
+            <ul class="mt-3 space-y-2 text-white/85 text-sm">
+              <li>• MCP discovery on FHIR schemas + data lineage</li>
+              <li>• Differential privacy & tokenization for PHI fields</li>
+              <li>• Output: NDJSON, Parquet; S3 → Snowflake copy</li>
+            </ul>
+          </div>
+          <div class="glass rounded-2xl p-5">
+            <div class="text-sm uppercase tracking-widest text-white/60">Impact</div>
+            <ul class="mt-3 space-y-2 text-white/85 text-sm">
+              <li>• 60% reduction in lower-env provisioning time</li>
+              <li>• 35% fewer integration defects in SIT</li>
+              <li>• 22% precision gain on triage for rare events</li>
+            </ul>
+          </div>
+        </div>
+        <div class="mt-6 grid md:grid-cols-3 gap-4 text-sm">
+          <div class="px-4 py-3 rounded-xl bg-emerald-500/15 ring-1 ring-emerald-400/30">HIPAA-aligned de-identification playbooks</div>
+          <div class="px-4 py-3 rounded-xl bg-sky-500/15 ring-1 ring-sky-400/30">Synthetic vitals with physiologic realism</div>
+          <div class="px-4 py-3 rounded-xl bg-indigo-500/15 ring-1 ring-indigo-400/30">FHIR API validators in CI</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 6: Benefits & CTA -->
+    <section class="slide snap-start flex items-center px-6 pb-12">
+      <div class="max-w-6xl mx-auto w-full">
+        <h2 class="text-3xl md:text-5xl font-extrabold">Benefits · Outcomes</h2>
+        <div class="mt-8 grid md:grid-cols-2 gap-6">
+          <div class="glass rounded-2xl p-6">
+            <h3 class="text-xl font-semibold">What you get</h3>
+            <ul class="mt-3 space-y-2 text-white/85 text-sm">
+              <li>• Multi-purpose synthetic datasets (ML, perf, staging)</li>
+              <li>• Executable seeding scripts and CI-ready recipes</li>
+              <li>• Compliance-first approach (GDPR/HIPAA alignment)</li>
+              <li>• Scale tuning & domain-aware distributions</li>
+            </ul>
+          </div>
+          <div class="glass rounded-2xl p-6">
+            <h3 class="text-xl font-semibold">Business impact</h3>
+            <ul class="mt-3 space-y-2 text-white/85 text-sm">
+              <li>• Faster releases with safe lower envs</li>
+              <li>• Reliable performance benchmarks</li>
+              <li>• Reduced dependency on production data</li>
+              <li>• Better ML model iteration cycles</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="mt-10 flex flex-wrap items-center justify-between gap-4">
+          <div class="text-white/70 text-sm">Next: plug into your stack — Snowflake · BigQuery · Postgres · MySQL · S3 · dbt · Kafka.</div>
+          <button id="cta" class="px-5 py-3 rounded-2xl bg-white text-gray-900 font-semibold shadow hover:shadow-lg transition">Request a Demo</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Progress & Controls -->
+  <div class="progress fixed bottom-0 left-0 right-0 z-40">
+    <div class="mx-auto max-w-6xl px-6 py-3 flex items-center gap-3">
+      <div class="flex-1 h-1.5 bg-white/10 rounded-full overflow-hidden">
+        <div id="bar" class="h-full w-0 bg-gradient-to-r from-sky-400 to-indigo-500"></div>
+      </div>
+      <div class="flex items-center gap-2">
+        <button id="prev" class="px-3 py-2 rounded-xl bg-white/10 ring-1 ring-white/15 hover:bg-white/15">← Prev</button>
+        <button id="next" class="px-3 py-2 rounded-xl bg-white/10 ring-1 ring-white/15 hover:bg-white/15">Next →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Thumbnails / Overview -->
+  <aside id="thumbs" class="thumbs hidden md:flex flex-col gap-3 fixed right-4 top-24 z-40 w-44">
+    <button data-goto="0" class="thumb glass rounded-xl p-3 text-left hover:ring-white/30">
+      <div class="text-xs text-white/70">Slide 1</div>
+      <div class="font-semibold">Title</div>
+    </button>
+    <button data-goto="1" class="thumb glass rounded-xl p-3 text-left hover:ring-white/30">
+      <div class="text-xs text-white/70">Slide 2</div>
+      <div class="font-semibold">Challenge</div>
+    </button>
+    <button data-goto="2" class="thumb glass rounded-xl p-3 text-left hover:ring-white/30">
+      <div class="text-xs text-white/70">Slide 3</div>
+      <div class="font-semibold">Introducing</div>
+    </button>
+    <button data-goto="3" class="thumb glass rounded-xl p-3 text-left hover:ring-white/30">
+      <div class="text-xs text-white/70">Slide 4</div>
+      <div class="font-semibold">Insurance</div>
+    </button>
+    <button data-goto="4" class="thumb glass rounded-xl p-3 text-left hover:ring-white/30">
+      <div class="text-xs text-white/70">Slide 5</div>
+      <div class="font-semibold">Healthcare</div>
+    </button>
+    <button data-goto="5" class="thumb glass rounded-xl p-3 text-left hover:ring-white/30">
+      <div class="text-xs text-white/70">Slide 6</div>
+      <div class="font-semibold">Benefits</div>
+    </button>
+  </aside>
+
+  <script>
+    const deck = document.getElementById('deck');
+    const slides = Array.from(deck.querySelectorAll('.slide'));
+    const prevBtn = document.getElementById('prev');
+    const nextBtn = document.getElementById('next');
+    const bar = document.getElementById('bar');
+    const thumbs = document.getElementById('thumbs');
+
+    function indexFromScroll() {
+      const y = deck.scrollTop;
+      let best = 0, bestDist = Infinity;
+      slides.forEach((s, i) => {
+        // Calculate the actual position of the slide within the scrollable container
+        const slideTop = s.getBoundingClientRect().top - deck.getBoundingClientRect().top + deck.scrollTop;
+        const d = Math.abs(slideTop - y);
+        if (d < bestDist) { best = i; bestDist = d; }
+      });
+      return best;
+    }
+
+    function goto(i) {
+      i = Math.max(0, Math.min(i, slides.length - 1));
+      // Use scrollIntoView for more reliable navigation
+      slides[i].scrollIntoView({ behavior: 'smooth', block: 'start' });
+      updateBar(i);
+    }
+
+    function updateBar(i = indexFromScroll()) {
+      const pct = ((i + 1) / slides.length) * 100;
+      bar.style.width = pct + '%';
+    }
+
+    deck.addEventListener('scroll', () => {
+      updateBar();
+    });
+
+    prevBtn.addEventListener('click', () => goto(indexFromScroll() - 1));
+    nextBtn.addEventListener('click', () => goto(indexFromScroll() + 1));
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') goto(indexFromScroll() + 1);
+      if (e.key === 'ArrowLeft') goto(indexFromScroll() - 1);
+      if (e.key.toLowerCase() === 'o') thumbs.classList.toggle('hidden');
+      if (e.key.toLowerCase() === 'd') document.body.classList.toggle('invert');
+    });
+
+    thumbs.querySelectorAll('[data-goto]').forEach(btn => btn.addEventListener('click', () => goto(parseInt(btn.dataset.goto, 10))));
+
+    // Add click handler for slides
+    slides.forEach((slide, index) => {
+      slide.addEventListener('click', (e) => {
+        // Only navigate if not clicking on interactive elements
+        if (!e.target.closest('button, a, input, textarea, select')) {
+          // Determine if click is on left or right half of slide
+          const rect = slide.getBoundingClientRect();
+          const clickX = e.clientX - rect.left;
+          const slideWidth = rect.width;
+          
+          if (clickX < slideWidth / 2) {
+            // Clicked on left half - go to previous slide
+            if (index > 0) goto(index - 1);
+          } else {
+            // Clicked on right half - go to next slide  
+            if (index < slides.length - 1) goto(index + 1);
+          }
+        }
+      });
+    });
+
+    // CTA button placeholder
+    document.getElementById('cta').addEventListener('click', () => alert('We\'ll reach out to schedule a demo of SynGen AI.'));
+
+    // Initialize
+    updateBar(0);
+  </script>
+</body>
+</html>
