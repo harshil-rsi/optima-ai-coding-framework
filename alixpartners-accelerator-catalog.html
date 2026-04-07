@@ -1,0 +1,1401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>R Systems × AlixPartners — Agentic AI Accelerator Catalog</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #fafafa;
+    --surface: #ffffff;
+    --surface2: #f3f4f6;
+    --border: #e5e7eb;
+    --border-strong: #d1d5db;
+    --text: #111827;
+    --text-secondary: #4b5563;
+    --text-dim: #6b7280;
+    --accent: #1e40af;
+    --accent-light: #dbeafe;
+    --accent-bg: rgba(30,64,175,0.04);
+    --green: #047857;
+    --green-bg: #ecfdf5;
+    --green-border: #a7f3d0;
+    --amber: #b45309;
+    --amber-bg: #fffbeb;
+    --amber-border: #fde68a;
+    --red: #b91c1c;
+    --red-bg: #fef2f2;
+    --red-border: #fecaca;
+    --gray-tag: #f3f4f6;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* HEADER */
+  .header {
+    padding: 48px 40px 36px;
+    border-bottom: 1px solid var(--border);
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .header-meta {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+  .header h1 {
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 10px;
+    letter-spacing: -0.5px;
+  }
+  .header p {
+    font-size: 16px;
+    color: var(--text-secondary);
+    max-width: 720px;
+    line-height: 1.7;
+  }
+
+  /* STATS */
+  .stats-row {
+    display: flex;
+    gap: 32px;
+    margin-top: 24px;
+    flex-wrap: wrap;
+  }
+  .stat {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+  }
+  .stat-num {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--text);
+  }
+  .stat-label {
+    font-size: 13px;
+    color: var(--text-dim);
+  }
+
+  /* NAV */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(250,250,250,0.97);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .nav-btn {
+    padding: 7px 16px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.15s;
+    font-family: inherit;
+  }
+  .nav-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .nav-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+  /* CONTENT */
+  .content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 36px 40px;
+  }
+
+  .section { margin-bottom: 56px; display: none; }
+  .section.active, .section.show-all { display: block; }
+
+  .section-head {
+    margin-bottom: 8px;
+  }
+  .section-head h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .section-desc {
+    color: var(--text-secondary);
+    font-size: 14px;
+    margin-bottom: 24px;
+    max-width: 800px;
+    line-height: 1.7;
+  }
+
+  /* RESEARCH INTEL BOX */
+  .intel-box {
+    background: var(--accent-bg);
+    border: 1px solid var(--accent-light);
+    border-left: 3px solid var(--accent);
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin-bottom: 32px;
+  }
+  .intel-box h3 {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+  .intel-box ul {
+    list-style: none;
+    padding: 0;
+  }
+  .intel-box li {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    padding: 3px 0;
+    padding-left: 16px;
+    position: relative;
+  }
+  .intel-box li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 10px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    opacity: 0.5;
+  }
+
+  /* CALLOUT */
+  .callout {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 18px 22px;
+    margin: 20px 0;
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+  .callout strong { color: var(--text); }
+
+  /* CARDS */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 16px;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px;
+    transition: all 0.2s;
+    cursor: pointer;
+    position: relative;
+  }
+  .card:hover {
+    border-color: var(--border-strong);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+    gap: 8px;
+  }
+
+  .card-badge {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .badge-ready { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); }
+  .badge-accelerator { background: var(--accent-light); color: var(--accent); border: 1px solid #bfdbfe; }
+  .badge-platform { background: #f3e8ff; color: #7c3aed; border: 1px solid #ddd6fe; }
+  .badge-agent { background: #ecfeff; color: #0e7490; border: 1px solid #a5f3fc; }
+  .badge-framework { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-border); }
+
+  /* Evidence strength badges */
+  .evidence-badge {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .evidence-strong { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); }
+  .evidence-moderate { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-border); }
+  .evidence-limited { background: var(--red-bg); color: var(--red); border: 1px solid var(--red-border); }
+
+  .card h3 {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+  .card-desc {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 14px;
+    line-height: 1.7;
+  }
+
+  .card-evidence {
+    background: var(--surface2);
+    border-radius: 6px;
+    padding: 12px 14px;
+    margin-bottom: 14px;
+  }
+  .card-evidence h4 {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--text-dim);
+    margin-bottom: 6px;
+  }
+  .card-evidence p {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+  .card-evidence .source-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--accent);
+    background: var(--accent-light);
+    padding: 2px 7px;
+    border-radius: 3px;
+    margin-right: 4px;
+    margin-bottom: 3px;
+  }
+
+  .card-details {
+    display: none;
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+  }
+  .card.expanded .card-details { display: block; }
+
+  .detail-section { margin-bottom: 14px; }
+  .detail-section h4 {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--accent);
+    margin-bottom: 6px;
+    font-weight: 700;
+  }
+  .detail-section p, .detail-section li {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+  .detail-section ul { list-style: none; padding: 0; }
+  .detail-section li { padding-left: 14px; position: relative; padding-bottom: 2px; }
+  .detail-section li::before {
+    content: "—";
+    position: absolute;
+    left: 0;
+    color: var(--text-dim);
+  }
+
+  .card-tags {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+  }
+  .tag {
+    font-size: 11px;
+    padding: 3px 8px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--text-dim);
+  }
+
+  .expand-hint {
+    font-size: 11px;
+    color: var(--text-dim);
+    text-align: right;
+    margin-top: 8px;
+  }
+  .card.expanded .expand-hint { display: none; }
+
+  /* TABLE */
+  .framework-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 16px;
+    font-size: 13px;
+  }
+  .framework-table th {
+    text-align: left;
+    padding: 12px 14px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-dim);
+    font-weight: 700;
+  }
+  .framework-table th:nth-child(4) {
+    color: var(--accent);
+    background: var(--accent-bg);
+  }
+  .framework-table td {
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    vertical-align: top;
+    line-height: 1.6;
+    color: var(--text-secondary);
+  }
+  .framework-table td:first-child {
+    font-weight: 600;
+    color: var(--text);
+    min-width: 130px;
+  }
+  .framework-table td:nth-child(4) { color: var(--text); background: var(--accent-bg); }
+  .framework-table tr:hover td { background: var(--surface2); }
+  .framework-table tr:hover td:nth-child(4) { background: rgba(30,64,175,0.06); }
+
+  /* TRANSPARENCY SECTION */
+  .transparency {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 28px;
+    margin-top: 40px;
+  }
+  .transparency h3 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+  .transparency-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .transparency-col h4 {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid;
+  }
+  .transparency-col.strong h4 { color: var(--green); border-color: var(--green); }
+  .transparency-col.moderate h4 { color: var(--amber); border-color: var(--amber); }
+  .transparency-col.limited h4 { color: var(--red); border-color: var(--red); }
+  .transparency-col ul { list-style: none; padding: 0; }
+  .transparency-col li {
+    font-size: 13px;
+    color: var(--text-secondary);
+    padding: 4px 0;
+    line-height: 1.5;
+  }
+  .transparency-col li strong { color: var(--text); font-weight: 600; }
+
+  .footer {
+    text-align: center;
+    padding: 32px 40px;
+    border-top: 1px solid var(--border);
+    color: var(--text-dim);
+    font-size: 12px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 768px) {
+    .header, .nav, .content { padding-left: 20px; padding-right: 20px; }
+    .header h1 { font-size: 24px; }
+    .card-grid { grid-template-columns: 1fr; }
+    .stats-row { gap: 16px; }
+    .framework-table { font-size: 12px; }
+    .transparency-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-meta">R Systems / AlixPartners Workshop — April 2026</div>
+  <h1>Agentic AI Accelerator Catalog</h1>
+  <p>Accelerators, agent platforms, and vertical solutions mapped to AlixPartners' published AI strategy, partnerships, case studies, and vertical priorities. Evidence strength is shown for each item.</p>
+  <div class="stats-row">
+    <div class="stat"><span class="stat-num">8</span><span class="stat-label">Technology Accelerators</span></div>
+    <div class="stat"><span class="stat-num">7</span><span class="stat-label">Vertical Solutions</span></div>
+    <div class="stat"><span class="stat-num">1</span><span class="stat-label">Transformation Framework</span></div>
+    <div class="stat"><span class="stat-num">3</span><span class="stat-label">Off-the-Shelf References</span></div>
+  </div>
+</div>
+
+<div class="nav">
+  <button class="nav-btn active" onclick="showSection('all', this)">All</button>
+  <button class="nav-btn" onclick="showSection('research', this)">Research Intel</button>
+  <button class="nav-btn" onclick="showSection('framework', this)">SaaS-to-AI Framework</button>
+  <button class="nav-btn" onclick="showSection('tech', this)">Technology Accelerators</button>
+  <button class="nav-btn" onclick="showSection('vertical', this)">Vertical Solutions</button>
+  <button class="nav-btn" onclick="showSection('ots', this)">Off-the-Shelf</button>
+</div>
+
+<div class="content">
+
+<!-- ════════════════════════════════════════ -->
+<!-- RESEARCH INTEL SECTION -->
+<!-- ════════════════════════════════════════ -->
+<div class="section show-all" id="research">
+  <div class="section-head"><h2>AlixPartners Research Intel</h2></div>
+  <div class="section-desc">This is the research foundation from our earlier discovery. Every accelerator in this catalog links back to specific items below. Where links are weak, they're flagged transparently.</div>
+
+  <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 16px;">
+
+    <div class="intel-box" style="margin-bottom:0">
+      <h3>AI Products & Platforms</h3>
+      <ul>
+        <li><strong>AI Profit Engine</strong> (Retail) — demand forecasting, pricing, inventory, marketing optimization across hundreds of data sources</li>
+        <li><strong>Data Activation Solutions (DAS)</strong> — next-gen data/AI platform connecting operational systems with automated pipelines</li>
+      </ul>
+    </div>
+
+    <div class="intel-box" style="margin-bottom:0">
+      <h3>Strategic Partnerships</h3>
+      <ul>
+        <li><strong>Palantir Foundry</strong> (Nov 2021) — consulting + Foundry platform, targeting aerospace, telecom, retail, media</li>
+        <li><strong>Endava</strong> (May 2025) — AI, cloud adoption, data analytics for PE, financial services, retail, energy, automotive</li>
+        <li><strong>FULLY AI</strong> (Jan 2025/CES) — virtual AI assistants for automakers and dealers</li>
+      </ul>
+    </div>
+
+    <div class="intel-box" style="margin-bottom:0">
+      <h3>Documented Case Studies</h3>
+      <ul>
+        <li><strong>Fleet Optimization:</strong> $100M+ EBITDA unlocked via AI optimization engine</li>
+        <li><strong>Treasury Ops:</strong> Forecast accuracy 80% to 90%, idle cash reduced 50%, productivity up 70%</li>
+        <li><strong>Consumer Goods:</strong> Enterprise AI CoE targeting $600M bottom-line benefits</li>
+        <li><strong>Retail:</strong> Multi-component AI for customer personalization (LTV, propensity, micro-segmentation)</li>
+      </ul>
+    </div>
+
+    <div class="intel-box" style="margin-bottom:0">
+      <h3>Published AI Strategy Pillars</h3>
+      <ul>
+        <li>Business model & real-time architecture</li>
+        <li>Customer understanding, prediction, and interaction</li>
+        <li>Information-based decisions</li>
+        <li>Digital automation</li>
+        <li>Technology finance and governance</li>
+      </ul>
+    </div>
+
+    <div class="intel-box" style="margin-bottom:0">
+      <h3>Thought Leadership Positions</h3>
+      <ul>
+        <li>SaaS-to-AI transition as an industry-wide shift</li>
+        <li>Agentic AI as the next wave: context-aware agents that recommend, compare, transact</li>
+        <li>~80% of AI projects fail; 95% of AI potential unrealized</li>
+        <li>Trust capabilities: 10-15% of AI budgets now, 20-30% by 2027</li>
+        <li>Published article on AI shopping agents disrupting retail</li>
+      </ul>
+    </div>
+
+    <div class="intel-box" style="margin-bottom:0">
+      <h3>Verticals & Competitive Posture</h3>
+      <ul>
+        <li><strong>Verticals:</strong> Retail, Automotive, Financial Services, Healthcare, Energy, PE, Tech</li>
+        <li><strong>Model:</strong> Partnership-driven — plugs capability gaps vs. building in-house</li>
+        <li><strong>Delivery:</strong> Small senior teams, P&L-tied accountability, 90-day sprints</li>
+        <li><strong>Growth:</strong> 22 new Partner/MD promotions in 2025, 104 Director promotions in Jan 2026</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- TRANSPARENCY TABLE -->
+  <div class="transparency">
+    <h3>Evidence Mapping — Transparency View</h3>
+    <p style="font-size:14px; color:var(--text-secondary); margin-bottom:20px; line-height:1.7;">How strongly each accelerator ties to our AlixPartners research. "Strong" means a direct link to a published product, case study, or partnership. "Moderate" means it ties to a stated vertical or strategic pillar without a specific asset. "Limited" means it's a logical fit but we found no direct evidence in our research.</p>
+    <div class="transparency-grid">
+      <div class="transparency-col strong">
+        <h4>Strong Evidence</h4>
+        <ul>
+          <li><strong>Retail AI Suite</strong> — AI Profit Engine, $600M consumer goods case study, retail personalization case study</li>
+          <li><strong>Treasury Agent</strong> — Published case study: 80% to 90% accuracy, 50% idle cash reduction</li>
+          <li><strong>Automotive Agent</strong> — FULLY AI partnership (CES 2025), $100M+ fleet optimization case study</li>
+          <li><strong>AI Trust & Governance</strong> — Their published thesis on trust budgets (20-30% by 2027) and 80% failure rate</li>
+          <li><strong>Agentic Commerce</strong> — Their published article on AI shopping agents, "agentic AI as next wave" position</li>
+          <li><strong>Turnaround Command Center</strong> — Core founding practice, P&L-tied delivery model</li>
+          <li><strong>Context Graph Engine</strong> — DAS platform, Palantir Foundry, "information-based decisions" pillar</li>
+        </ul>
+      </div>
+      <div class="transparency-col moderate">
+        <h4>Moderate Evidence</h4>
+        <ul>
+          <li><strong>SDLC Platform</strong> — Endava partnership scope (cloud, digital), "digital automation" pillar</li>
+          <li><strong>MCP Integration Fabric</strong> — Palantir Foundry integration play, DAS platform, "real-time architecture" pillar</li>
+          <li><strong>Legacy Modernization</strong> — Endava partnership, PE portfolio modernization needs</li>
+          <li><strong>PE Due Diligence Agent</strong> — PE is a core vertical, partnership model is relevant, but no specific DD product found</li>
+          <li><strong>Conversational BI</strong> — "Information-based decisions" pillar, general consulting need</li>
+          <li><strong>Process Mining</strong> — Operational consulting DNA, "digital automation" pillar</li>
+        </ul>
+      </div>
+      <div class="transparency-col limited">
+        <h4>Limited Evidence</h4>
+        <ul>
+          <li><strong>Healthcare Agent</strong> — Healthcare is a listed vertical, but no specific AI product, case study, or partnership found in our research</li>
+          <li><strong>Document Processing Agent</strong> — General utility across all engagements, but not tied to any specific AlixPartners asset or stated priority</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════ -->
+<!-- FRAMEWORK SECTION -->
+<!-- ════════════════════════════════════════ -->
+<div class="section show-all" id="framework">
+  <div class="section-head"><h2>SaaS-to-AI Transformation Framework</h2></div>
+  <div class="section-desc">Position as a strategic consulting lens: every enterprise capability can be reimagined through three evolutionary stages. Derived from Christoph Janz's "Every SaaS Feature, Reimagined" — repurposed as a build framework where every row is a potential engagement.</div>
+
+  <div class="intel-box">
+    <h3>Research Link</h3>
+    <ul>
+      <li>AlixPartners has published thought leadership on the SaaS-to-AI transition, calling it an industry-wide shift where enterprise software moves from selling software to selling AI-powered services</li>
+      <li>Their "agentic AI as the next wave" position maps directly to the right column of this framework</li>
+      <li>Their "digital automation" and "real-time architecture" strategy pillars are what this framework operationalizes</li>
+    </ul>
+  </div>
+
+  <div class="callout">
+    <strong>Presenter note:</strong> Walk through 2-3 rows live. Then ask: "Which of these capabilities are highest priority for your clients right now?" Every row becomes a potential engagement. The right column is what R Systems builds.
+  </div>
+
+  <div style="overflow-x:auto;">
+  <table class="framework-table">
+    <tr>
+      <th>Capability</th>
+      <th>Past (Rule-Based SaaS)</th>
+      <th>Recent Past (AI-Assisted)</th>
+      <th>Now / R Systems Builds (AI-Native & Agentic)</th>
+    </tr>
+    <tr>
+      <td>Forms & Data Capture</td>
+      <td>Static input forms, 15 fields to create a contact</td>
+      <td>Auto-complete, some enrichment — still filling fields</td>
+      <td>Natural language: "Met Anna from Siemens at a conference." Agent creates contact, enriches, logs interaction, triggers workflows</td>
+    </tr>
+    <tr>
+      <td>Workflows</td>
+      <td>If-this-then-that chains. Humans design every step. Brittle.</td>
+      <td>AI suggests steps, still a visual builder underneath.</td>
+      <td>Describe the outcome. Agents execute, monitor, self-heal. "When a customer cancels, check tickets, pull usage, draft churn analysis, send to account owner."</td>
+    </tr>
+    <tr>
+      <td>Data Import</td>
+      <td>Rigid CSV templates. Static column mapping.</td>
+      <td>AI suggests matches, auto-fixes formats. Human confirms.</td>
+      <td>Drop any file, any format. Agent parses, normalizes, routes to correct system. Learns from corrections.</td>
+    </tr>
+    <tr>
+      <td>Integrations</td>
+      <td>Thousands of engineering hours per integration.</td>
+      <td>MCP and standard protocols emerging.</td>
+      <td>Apps expose capabilities via standard protocols (MCP). Agents compose new integrations at runtime.</td>
+    </tr>
+    <tr>
+      <td>Email & Comms</td>
+      <td>Copy & paste between email, CRM, spreadsheets.</td>
+      <td>AI summarizes, drafts replies, extracts action items.</td>
+      <td>Agent reads email, understands context, acts across systems. Complaint triggers ticket, CRM update, drafted response. You approve.</td>
+    </tr>
+    <tr>
+      <td>Data Access</td>
+      <td>Scattered across apps. Data lakes for engineers only.</td>
+      <td>RAG / vector search over docs. Partial coverage.</td>
+      <td>Agent accesses files, CRM, Slack, calendar, analytics. Ask questions across everything.</td>
+    </tr>
+    <tr>
+      <td>Search</td>
+      <td>Keyword matching. Must know which app.</td>
+      <td>Some AI search. Still keyword-heavy.</td>
+      <td>"Find the proposal we discussed with the Danish logistics company last quarter." Searches across all systems.</td>
+    </tr>
+    <tr>
+      <td>Reporting</td>
+      <td>Pre-built dashboards, SQL for power users.</td>
+      <td>AI generates charts from natural language. Simple queries.</td>
+      <td>"What drove churn last month vs same period last year?" Multi-source analysis with generated visuals. BI becomes a conversation.</td>
+    </tr>
+    <tr>
+      <td>Document Gen</td>
+      <td>Mail merge, template engines. Same structure every time.</td>
+      <td>AI drafts from prompts. Good first drafts, needs editing.</td>
+      <td>"Draft a renewal proposal for Acme based on their usage and new pricing." Contextual, adaptive. Templates as guardrails, not constraints.</td>
+    </tr>
+  </table>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════ -->
+<!-- TECHNOLOGY ACCELERATORS -->
+<!-- ════════════════════════════════════════ -->
+<div class="section show-all" id="tech">
+  <div class="section-head"><h2>Technology Accelerators</h2></div>
+  <div class="section-desc">Horizontal capabilities that apply across industries — the engineering platforms and AI-native toolkits that compress timelines. Each card shows its link to our AlixPartners research and the strength of that evidence.</div>
+
+  <div class="card-grid">
+
+    <!-- Context Graph Engine -->
+    <div class="card" onclick="this.classList.toggle('expanded')">
+      <div class="card-top">
+        <div class="card-badge badge-platform">Platform</div>
+        <div class="evidence-badge evidence-strong">Strong Evidence</div>
+      </div>
+      <h3>Enterprise Context Graph Engine</h3>
+      <div class="card-desc">Enterprise knowledge compiler: ingests raw sources (docs, emails, Slack, CRM, repos), compiles them into a structured, interlinked knowledge graph via LLM, and serves as persistent memory for all downstream agents.</div>
+      <div class="card-evidence">
+        <h4>Research Links</h4>
+        <p>
+          <span class="source-tag">DAS Platform</span>
+          <span class="source-tag">Palantir Foundry</span>
+          <span class="source-tag">Strategy Pillar: Information-Based Decisions</span>
+          <br>AlixPartners' Data Activation Solutions (DAS) platform connects operational systems with automated pipelines — the Context Graph is the intelligence layer on top. Their Palantir Foundry partnership already centralizes data; this adds LLM-compiled knowledge structure. Directly supports their "information-based decisions" pillar.
+        </p>
+      </div>
+      <div class="card-tags">
+        <span class="tag">Context Engineering</span>
+        <span class="tag">Knowledge Graph</span>
+        <span class="tag">Agent Memory</span>
+        <span class="tag">Karpathy Pattern</span>
+      </div>
+      <div class="expand-hint">Click to expand</div>
+      <div class="card-details">
+        <div class="detail-section">
+          <h4>Architecture (from Karpathy's pattern, productionized)</h4>
+          <ul>
+            <li>Raw data from heterogeneous sources indexed into a raw/ layer</li>
+            <li>LLM incrementally "compiles" a wiki — .md files with summaries, backlinks, concept articles, cross-links</li>
+            <li>Auto-maintains index files, brief summaries; handles ~400K words without needing fancy RAG</li>
+            <li>LLM "health checks" lint the wiki: finds inconsistencies, imputes missing data, suggests new connections</li>
+            <li>Outputs (reports, slides, visualizations) filed back into wiki — queries compound the knowledge base</li>
+            <li>Enterprise additions: multi-user, access controls, audit trail, API for downstream agents, MCP integration</li>
+          </ul>
+        </div>
+        <div class="detail-section">
+          <h4>Why This Matters for AlixPartners</h4>
+          <p>Their consulting teams land in client orgs for 90-day sprints. A context graph means day-1 situational awareness instead of week-3. PE due diligence: compile 200+ documents into a queryable knowledge base in hours, not weeks. Karpathy's exact words: "I think there is room here for an incredible new product instead of a hacky collection of scripts." We're building that product.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SDLC Platform -->
+    <div class="card" onclick="this.classList.toggle('expanded')">
+      <div class="card-top">
+        <div class="card-badge badge-platform">Platform</div>
+        <div class="evidence-badge evidence-moderate">Moderate Evidence</div>
+      </div>
+      <h3>Agentic SDLC Platform</h3>
+      <div class="card-desc">End-to-end software development lifecycle transformation: specialized agents for requirements, architecture, coding, review, testing, deployment, and monitoring — orchestrated with persistent token memory across the codebase.</div>
+      <div class="card-evidence">
+        <h4>Research Links</h4>
+        <p>
+          <span class="source-tag">Endava Partnership</span>
+          <span class="source-tag">Strategy Pillar: Digital Automation</span>
+          <br>Ties to the Endava partnership scope (AI, cloud adoption, digital transformation) and the "digital automation" pillar. No specific SDLC product or case study found from AlixPartners, but their PE portfolio companies consistently need rapid tech delivery.
+        </p>
+      </div>
+      <div class="card-tags">
+        <span class="tag">SDLC</span>
+        <span class="tag">Code Agents</span>
+        <span class="tag">Token Memory</span>
+        <span class="tag">CI/CD</span>
+      </div>
+      <div class="expand-hint">Click to expand</div>
+      <div class="card-details">
+        <div class="detail-section">
+          <h4>Agent Swarm</h4>
+          <ul>
+            <li>Requirements Agent: parses PRDs, user stories, Jira tickets into specs + acceptance criteria</li>
+            <li>Architecture Agent: analyzes codebase, proposes designs, identifies dependency risks</li>
+            <li>Implementation Agent: writes code with full repo context (Claude Code, Cursor as base)</li>
+            <li>Review Agent: automated PR review with security scanning, style enforcement, logic validation</li>
+            <li>Test Agent: generates unit/integration/e2e tests, runs them, fixes failures autonomously</li>
+            <li>Deploy Agent: IaC generation, canary deployments, rollback triggers</li>
+          </ul>
+        </div>
+        <div class="detail-section">
+          <h4>Token Memory Differentiator</h4>
+          <p>Persistent context layer that maintains understanding of the entire codebase, past decisions, architectural patterns, and team conventions. New agents inherit institutional code knowledge. Industry benchmarks show 40-60% productivity improvement and 30-50% faster modernization.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Legacy Modernization -->
+    <div class="card" onclick="this.classList.toggle('expanded')">
+      <div class="card-top">
+        <div class="card-badge badge-accelerator">Accelerator</div>
+        <div class="evidence-badge evidence-moderate">Moderate Evidence</div>
+      </div>
+      <h3>Legacy Modernization Agent Swarm</h3>
+      <div class="card-desc">Multi-agent system that analyzes legacy codebases (COBOL, VB6, mainframe), maps dependencies, generates modernization plans, and executes incremental migration with automated equivalence testing.</div>
+      <div class="card-evidence">
+        <h4>Research Links</h4>
+        <p>
+          <span class="source-tag">Endava Partnership</span>
+          <span class="source-tag">PE Portfolio Needs</span>
+          <br>Endava partnership targets cloud adoption and digital transformation. PE portfolio companies frequently carry legacy tech debt that impacts deal value. No specific legacy modernization case study found from AlixPartners, but the need is structurally embedded in their PE and turnaround work.
+        </p>
+      </div>
+      <div class="card-tags">
+        <span class="tag">Legacy Migration</span>
+        <span class="tag">Code Analysis</span>
+        <span class="tag">COBOL/Mainframe</span>
+        <span class="tag">Strangler Fig</span>
+      </div>
+      <div class="expand-hint">Click to expand</div>
+      <div class="card-details">
+        <div class="detail-section">
+          <h4>Agents</h4>
+          <ul>
+            <li>Discovery Agent: scans codebase, maps dependencies, generates architecture diagrams</li>
+            <li>Analysis Agent: identifies business logic embedded in legacy code, extracts rules</li>
+            <li>Migration Agent: translates code to modern languages, preserving logic</li>
+            <li>Equivalence Testing Agent: generates test suites verifying old-to-new behavior match</li>
+            <li>Documentation Agent: produces architecture docs, API specs, runbooks the legacy system never had</li>
+          </ul>
+        </div>
+        <div class="detail-section">
+          <h4>Market Data</h4>
+          <p>Industry benchmarks: up to 50% reduction in manual conversion effort, 44% faster delivery timelines (11 months to 6), 68% overall cost savings through automation.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- MCP Integration Fabric -->
+    <div class="card" onclick="this.classList.toggle('expanded')">
+      <div class="card-top">
+        <div class="card-badge badge-platform">Platform</div>
+        <div class="evidence-badge evidence-moderate">Moderate Evidence</div>
+      </div>
+      <h3>Agentic Integration Fabric (MCP Hub)</h3>
+      <div class="card-desc">Pre-built library of MCP connectors and an orchestration layer enabling agents to dynamically compose integrations across enterprise systems — CRM, ERP, data warehouses, SaaS tools — without point-to-point integration engineering.</div>
+      <div class="card-evidence">
+        <h4>Research Links</h4>
+        <p>
+          <span class="source-tag">Palantir Foundry</span>
+          <span class="source-tag">DAS Platform</span>
+          <span class="source-tag">Strategy Pillar: Real-Time Architecture</span>
+          <br>Foundry is already an integration hub; this extends it with agentic capabilities. DAS platform vision is about connecting operational systems. Their "real-time architecture" pillar requires dynamic integration, not static connectors.
+        </p>
+      </div>
+      <div class="card-tags">
+        <span class="tag">MCP</span>
+        <span class="tag">iPaaS Replacement</span>
+        <span class="tag">Runtime Integration</span>
+        <span class="tag">Anthropic Protocol</span>
+      </div>
+      <div class="expand-hint">Click to expand</div>
+      <div class="card-details">
+        <div class="detail-section">
+          <h4>Pre-Built Connectors</h4>
+          <ul>
+            <li>Salesforce, HubSpot, Dynamics CRM</li>
+            <li>SAP, Oracle ERP, NetSuite</li>
+            <li>Snowflake, Databricks, BigQuery</li>
+            <li>Slack, Teams, Gmail, Calendar</li>
+            <li>Jira, Confluence, GitHub, GitLab</li>
+            <li>Custom REST/GraphQL adapter generator</li>
+          </ul>
+        </div>
+        <div class="detail-section">
+          <h4>Why MCP Matters</h4>
+          <p>MCP is becoming the standard protocol for AI-to-tool communication — the USB-C of AI integrations. Instead of engineering N-by-N connections, agents discover and invoke capabilities at runtime. AlixPartners' PE clients run heterogeneous tech stacks; an MCP hub means agents can operate across the entire stack from day 1.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI Trust & Governance -->
+    <div class="card" onclick="this.classList.toggle('expanded')">
+      <div class="card-top">
+        <div class="card-badge badge-accelerator">Accelerator</div>
+        <div class="evidence-badge evidence-strong">Strong Evidence</div>
+      </div>
+      <h3>AI Trust & Governance Accelerator</h3>
+      <div class="card-desc">Production-grade guardrails, observability, and compliance framework for agentic systems — addressing the trust gap AlixPartners predicts will consume 20-30% of AI budgets by 2027.</div>
+      <div class="card-evidence">
+        <h4>Research Links</h4>
+        <p>
+          <span class="source-tag">Published Thought Leadership</span>
+          <span class="source-tag">Strategy Pillar: Technology Finance & Governance</span>
+          <span class="source-tag">80% Failure Rate Thesis</span>
+          <br>AlixPartners has publicly stated: trust capabilities will consume 10-15% of AI budgets in 2025, rising to 20-30% by 2027. They also note ~80% of AI projects fail and 95% of AI potential is unrealized. Their "technology finance and governance" pillar directly targets this. This accelerator operationalizes their thesis.
+        </p>
+      </div>
+      <div class="card-tags">
+        <span class="tag">Guardrails</span>
+        <span class="tag">Observability</span>
+        <span class="tag">Compliance</span>
+        <span class="tag">Human-in-Loop</span>
+      </div>
+      <div class="expand-hint">Click to expand</div>
+      <div class="card-details">
+        <div class="detail-section">
+          <h4>Components</h4>
+          <ul>
+            <li>Policy Engine: declarative rules for agent permissions, escalation paths</li>
+            <li>Audit Trail: every agent action logged, traceable, replayable</li>
+            <li>Hallucination Detection: automated fact-checking against source data</li>
+            <li>Cost Controls: token budgets, circuit breakers, cost attribution per agent</li>
+            <li>Human-in-the-Loop: configurable approval gates for high-stakes decisions</li>
+            <li>Compliance Reporting: SOC 2, GDPR, HIPAA-aware agent governance</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Process Mining -->
+    <div class="card" onclick="this.classList.toggle('expanded')">
+      <div class="card-top">
+        <div class="card-badge badge-agent">Agent</div>
+        <div class="evidence-badge evidence-moderate">Moderate Evidence</div>
+      </div>
+      <h3>Agentic Process Mining & Automation Discovery</h3>
+      <div class="card-desc">Agents that observe enterprise workflows via system logs, user actions, and document flows — identify automation opportunities, estimate ROI, and generate implementation blueprints. Turns 12-week discovery into a 2-week agent sprint.</div>
+      <div class="card-evidence">
+        <h4>Research Links</h4>
+        <p>
+          <span class="source-tag">Operational Consulting DNA</span>
+          <span class="source-tag">Strategy Pillar: Digital Automation</span>
+          <br>AlixPartners' core business is operational transformation. Process discovery and automation identification is foundational to their methodology. No specific process mining product found, but this directly amplifies their existing consulting delivery model.
+        </p>
+      </div>
+      <div class="card-tags">
+        <span class="tag">Process Mining</span>
+        <span class="tag">ROI Estimation</span>
+        <span class="tag">Automation Discovery</span>
+      </div>
+      <div class="expand-hint">Click to expand</div>
+      <div class="card-details">
+        <div class="detail-section">
+          <h4>How It Works</h4>
+          <ul>
+            <li>Ingests system logs, event streams, document metadata, email patterns</li>
+            <li>Maps actual process flows (not idealized) using LLM pattern recognition</li>
+            <li>Identifies bottlenecks, rework loops, manual handoffs</li>
+            <li>Ranks automation candidates by effort vs. impact</li>
+            <li>Generates agent blueprints for top opportunities</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Document Processing -->
+    <div class="card" onclick="this.classList.toggle('expanded')">
+      <div class="card-top">
+        <div class="card-badge badge-accelerator">Accelerator</div>
+        <div class="evidence-badge evidence-limited">Limited Evidence</div>
+      </div>
+      <h3>Intelligent Document Processing Agent</h3>
+      <div class="card-desc">Multi-modal document understanding: processes contracts, invoices, regulatory filings, and unstructured reports. Extracts structured data, cross-references against schemas, and feeds downstream systems or triggers workflows.</div>
+      <div class="card-evidence">
+        <h4>Research Links</h4>
+        <p>
+          <span class="source-tag">General Utility</span>
+          <br>No specific AlixPartners product, case study, or partnership maps to document processing. However, every engagement they run — turnaround, M&A, PE due diligence — involves processing large volumes of documents. This is a foundational capability rather than a direct research-backed offering. <strong>Transparency note: included because of structural relevance to their work, not because of specific evidence from our research.</strong>
+        </p>
+      </div>
+      <div class="card-tags">
+        <span class="tag">Document AI</span>
+        <span class="tag">Contract Analysis</span>
+        <span class="tag">Multi-modal</span>
+      </div>
+      <div class="expand-hint">Click to expand</div>
+      <div class="card-details">
+        <div class="detail-section">
+          <h4>Use Cases</h4>
+          <ul>
+            <li>PE due diligence: process 500+ documents in a data room overnight</li>
+            <li>Contract analysis: extract terms, obligations, renewal dates, risk clauses</li>
+            <li>Invoice processing: multi-format, multi-currency, auto-coding to GL accounts</li>
+            <li>Regulatory filings: parse and compare across jurisdictions</li>
+            <li>M&A document rooms: build queryable knowledge base from deal documents</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Conversational BI -->
+    <div class="card" onclick="this.classList.toggle('expanded')">
+      <div class="card-top">
+        <div class="card-badge badge-agent">Agent</div>
+        <div class="evidence-badge evidence-moderate">Moderate Evidence</div>
+      </div>
+      <h3>Conversational BI / Analytics Agent</h3>
+      <div class="card-desc">Natural language analytics agent: connects to any data source, generates queries on the fly, produces visualizations, and runs multi-step analytical workflows. Turns "What happened?" into "Why, and what should we do?"</div>
+      <div class="card-evidence">
+        <h4>Research Links</h4>
+        <p>
+          <span class="source-tag">Strategy Pillar: Information-Based Decisions</span>
+          <span class="source-tag">DAS Platform</span>
+          <br>Directly supports the "information-based decisions" pillar. DAS platform connects data sources — this adds the conversational query layer. No specific BI product found from AlixPartners, but their consulting teams consistently need rapid data-driven insights during engagements.
+        </p>
+      </div>
+      <div class="card-tags">
+        <span class="tag">Natural Language BI</span>
+        <span class="tag">Auto-SQL</span>
+        <span class="tag">Visualization</span>
+        <span class="tag">Multi-Source</span>
+      </div>
+      <div class="expand-hint">Click to expand</div>
+      <div class="card-details">
+        <div class="detail-section">
+          <h4>Beyond Text-to-SQL</h4>
+          <ul>
+            <li>Understands business context via the Context Graph — "revenue" resolves to the right table, right metric</li>
+            <li>Multi-step analysis: decomposes complex questions, assembles results</li>
+            <li>Generates executive-ready visualizations</li>
+            <li>Proactive insights: monitors data for anomalies, alerts stakeholders</li>
+            <li>Compares across time periods, segments, scenarios without pre-built dashboards</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════ -->
+<!-- VERTICAL SOLUTIONS -->
+<!-- ════════════════════════════════════════ -->
+<div class="section show-all" id="vertical">
+  <div class="section-head"><h2>Vertical Domain Solutions</h2></div>
+  <div class="section-desc">Industry-specific agents and platforms mapped to AlixPartners' core verticals. Each card shows the specific research evidence (or lack thereof) connecting it to their published priorities.</div>
+
+  <div class="card-grid">
+
+    <!-- Agentic Commerce -->
+    <div class="card" onclick="this.classList.toggle('expanded')">
+      <div class="card-top">
+        <div class="card-badge badge-platform">Platform</div>
+        <div class="evidence-badge evidence-strong">Strong Evidence</div>
+      </div>
+      <h3>Agentic Commerce Platform</h3>
+      <div class="card-desc">End-to-end AI-initiated commerce stack — from shopping agents that discover/compare/purchase to payment orchestration, fraud detection, and merchant readiness tooling. Built on production experience with Spreedly.</div>
+      <div class="card-evidence">
+        <h4>Research Links</h4>
+        <p>
+          <span class="source-tag">Published Article: AI Shopping Agents</span>
+          <span class="source-tag">Thought Leadership: Agentic AI as Next Wave</span>
+          <span class="source-tag">Retail Vertical</span>
+          <br>AlixPartners published a dedicated article on what AI shopping agents mean for retailers, calling it "a new channel — in effect, a new set of customers." They identified six imperatives for retailers. Their thought leadership positions agentic commerce as the defining shift. We have production experience via Spreedly.
+        </p>
+      </div>
+      <div class="card-tags">
+        <span class="tag">Payments</span>
+        <span class="tag">Shopping Agents</span>
+        <span class="tag">Visa/Mastercard Protocols</span>
+        <span class="tag">Spreedly</span>
+      </div>
+      <div class="expand-hint">Click to expand</div>
+      <div class="card-details">
+        <div class="detail-section">
+          <h4>Market Context (April 2026)</h4>
+          <p>Visa completed live agent-initiated transactions in Dec 2025. Mastercard launched Agent Pay. Protocols are live: Anthropic's MCP, Stripe's ACP, Google's AP2, Visa's Trusted Agent Protocol. AI agents influenced $262B in holiday sales. Up to 30% of global e-commerce value expected to be agent-influenced by 2030.</p>
+        </div>
+        <div class="detail-section">
+          <h4>Components</h4>
+          <ul>
+            <li>Shopping Agent Framework: product discovery, comparison, recommendation</li>
+            <li>Payment Orchestration: multi-PSP routing, agent-initiated auth, tokenization</li>
+            <li>Merchant Readiness Toolkit: structured product data, machine-readable catalogs</li>
+            <li>Fraud & Trust Layer: agent identity verification, transaction guardrails</li>
+            <li>Analytics: agent-attributed revenue tracking, conversion optimization</li>
+          </ul>
+        </div>
+        <div class="detail-section">
+          <h4>Partnership Angle</h4>
+          <p>AlixPartners advises retailers on what to do about agentic commerce (their six imperatives). We build it. This is a natural consulting-plus-implementation partnership play.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Retail AI Suite -->
+    <div class="card" onclick="this.classList.toggle('expanded')">
+      <div class="card-top">
+        <div class="card-badge badge-accelerator">Accelerator</div>
+        <div class="evidence-badge evidence-strong">Strong Evidence</div>
+      </div>
+      <h3>Retail Operations AI Suite</h3>
+      <div class="card-desc">Demand forecasting, dynamic pricing, inventory optimization, and marketing personalization agents — designed to complement AlixPartners' AI Profit Engine with implementation-ready engineering.</div>
+      <div class="card-evidence">
+        <h4>Research Links</h4>
+        <p>
+          <span class="source-tag">AI Profit Engine</span>
+          <span class="source-tag">$600M Consumer Goods Case Study</span>
+          <span class="source-tag">Retail Personalization Case Study</span>
+          <br>Direct complement to their AI Profit Engine (demand forecasting, pricing, inventory, marketing). Their consumer goods case study targets $600M bottom-line benefits across OTIF, DTC, inventory, pricing, and marketing. Their retail case study covers LTV, propensity modeling, micro-segmentation. We provide the implementation layer.
+        </p>
+      </div>
+      <div class="card-tags">
+        <span class="tag">Demand Forecasting</span>
+        <span class="tag">Dynamic Pricing</span>
+        <span class="tag">Inventory</span>
+        <span class="tag">Personalization</span>
+      </div>
+      <div class="expand-hint">Click to expand</div>
+      <div class="card-details">
+        <div class="detail-section">
+          <h4>Positioning</h4>
+          <p>AlixPartners has the AI Profit Engine (strategy + analytics). We provide the engineering teams that take their models and deploy them into client systems with MLOps, monitoring, and integration. Partnership play, not competition.</p>
+        </div>
+        <div class="detail-section">
+          <h4>Agents</h4>
+          <ul>
+            <li>Demand Agent: multi-signal forecasting (weather, events, social, historical)</li>
+            <li>Price Agent: real-time competitive pricing with margin guardrails</li>
+            <li>Inventory Agent: cross-channel stock optimization, auto-reorder</li>
+            <li>Personalization Agent: micro-segmentation, next-best-action</li>
+            <li>Markdown Agent: optimal clearance timing and depth</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- PE Due Diligence -->
+    <div class="card" onclick="this.classList.toggle('expanded')">
+      <div class="card-top">
+        <div class="card-badge badge-agent">Agent</div>
+        <div class="evidence-badge evidence-moderate">Moderate Evidence</div>
+      </div>
+      <h3>PE Due Diligence Agent</h3>
+      <div class="card-desc">Automated due diligence for private equity: processes data rooms, financial models, market research, and legal documents to produce investment memos with risk flags, synergy estimates, and integration blueprints in days instead of weeks.</div>
+      <div class="card-evidence">
+        <h4>Research Links</h4>
+        <p>
+          <span class="source-tag">PE Vertical (Core)</span>
+          <span class="source-tag">Partnership-Driven Model</span>
+          <br>PE is one of AlixPartners' largest practice areas. Their partnership-driven model (Palantir, Endava) shows they actively seek technology partners for capability gaps. However, we found no specific due diligence product or automation case study in our research. <strong>Transparency note: strong structural fit, but the specific DD agent concept is our proposition, not something they've published about.</strong>
+        </p>
+      </div>
+      <div class="card-tags">
+        <span class="tag">Private Equity</span>
+        <span class="tag">Due Diligence</span>
+        <span class="tag">Data Room</span>
+        <span class="tag">Investment Memo</span>
+      </div>
+      <div class="expand-hint">Click to expand</div>
+      <div class="card-details">
+        <div class="detail-section">
+          <h4>What the Agent Does</h4>
+          <ul>
+            <li>Ingests entire data room (financial statements, contracts, HR docs, IP filings)</li>
+            <li>Builds a Context Graph of the target company</li>
+            <li>Identifies red flags: unusual clauses, financial inconsistencies, regulatory risks</li>
+            <li>Generates draft investment memo with key findings</li>
+            <li>Compares against industry benchmarks and comparable transactions</li>
+            <li>Produces integration playbook with synergy estimates</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Treasury Agent -->
+    <div class="card" onclick="this.classList.toggle('expanded')">
+      <div class="card-top">
+        <div class="card-badge badge-agent">Agent</div>
+        <div class="evidence-badge evidence-strong">Strong Evidence</div>
+      </div>
+      <h3>Treasury & Cash Management Agent</h3>
+      <div class="card-desc">Autonomous treasury agent: forecasts cash flows, optimizes liquidity, monitors covenant compliance, and recommends actions — directly extending AlixPartners' published case study results.</div>
+      <div class="card-evidence">
+        <h4>Research Links</h4>
+        <p>
+          <span class="source-tag">Published Case Study</span>
+          <span class="source-tag">Financial Services Vertical</span>
+          <br>AlixPartners published a treasury operations case study showing: forecast accuracy improved from 80% to 90%, idle cash reduced 50%, productivity up 70%. Our agent takes this from "a model that analysts use" to "an agent that continuously monitors, auto-adjusts, and recommends actions." Extends proven results.
+        </p>
+      </div>
+      <div class="card-tags">
+        <span class="tag">Treasury</span>
+        <span class="tag">Cash Forecasting</span>
+        <span class="tag">Liquidity</span>
+        <span class="tag">Covenant Monitoring</span>
+      </div>
+      <div class="expand-hint">Click to expand</div>
+      <div class="card-details">
+        <div class="detail-section">
+          <h4>Components</h4>
+          <ul>
+            <li>Multi-entity cash position aggregation (real-time)</li>
+            <li>ML-powered cash flow forecasting with scenario modeling</li>
+            <li>Covenant monitoring with early warning alerts</li>
+            <li>FX exposure tracking and hedging recommendations</li>
+            <li>Intercompany netting and sweep optimization</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Automotive -->
+    <div class="card" onclick="this.classList.toggle('expanded')">
+      <div class="card-top">
+        <div class="card-badge badge-accelerator">Accelerator</div>
+        <div class="evidence-badge evidence-strong">Strong Evidence</div>
+      </div>
+      <h3>Automotive & Fleet Intelligence Agent</h3>
+      <div class="card-desc">AI agents for automotive OEMs, fleet operators, and dealers — supply chain optimization, dealer network intelligence, customer experience personalization, and predictive maintenance.</div>
+      <div class="card-evidence">
+        <h4>Research Links</h4>
+        <p>
+          <span class="source-tag">FULLY AI Partnership (CES 2025)</span>
+          <span class="source-tag">$100M+ Fleet Optimization Case Study</span>
+          <span class="source-tag">Automotive Vertical (since 2003)</span>
+          <br>FULLY AI partnership launched at CES 2025 for virtual AI assistants for automakers and dealers. Fleet optimization case study: $100M+ EBITDA unlocked. Automotive has been a core vertical since 2003. Strong multi-point evidence.
+        </p>
+      </div>
+      <div class="card-tags">
+        <span class="tag">Automotive</span>
+        <span class="tag">Fleet Optimization</span>
+        <span class="tag">Supply Chain</span>
+        <span class="tag">Dealer AI</span>
+      </div>
+      <div class="expand-hint">Click to expand</div>
+      <div class="card-details">
+        <div class="detail-section">
+          <h4>Agents</h4>
+          <ul>
+            <li>Supply Chain Agent: multi-tier supplier risk monitoring, disruption prediction, alternative sourcing</li>
+            <li>Fleet Optimization Agent: route optimization, predictive maintenance, TCO modeling</li>
+            <li>Dealer Intelligence Agent: inventory allocation, market demand prediction, customer matching</li>
+            <li>Virtual Showroom Agent: AI assistant for customers — configure, compare, finance (extends FULLY AI partnership)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Healthcare -->
+    <div class="card" onclick="this.classList.toggle('expanded')">
+      <div class="card-top">
+        <div class="card-badge badge-agent">Agent</div>
+        <div class="evidence-badge evidence-limited">Limited Evidence</div>
+      </div>
+      <h3>Healthcare Operations & Compliance Agent</h3>
+      <div class="card-desc">Agents for healthcare payers and providers: claims processing, prior authorization, clinical trial matching, regulatory compliance monitoring, and revenue cycle optimization.</div>
+      <div class="card-evidence">
+        <h4>Research Links</h4>
+        <p>
+          <span class="source-tag">Listed Vertical Only</span>
+          <br>Healthcare & Life Sciences is listed as an AlixPartners vertical. However, our research found no specific AI product, case study, or partnership targeting healthcare. <strong>Transparency note: this is included because the vertical is large and the use cases are high-value, but we have the weakest evidence base here. Recommend validating whether healthcare AI is a priority for their team before presenting this prominently.</strong>
+        </p>
+      </div>
+      <div class="card-tags">
+        <span class="tag">Healthcare</span>
+        <span class="tag">Claims</span>
+        <span class="tag">Prior Auth</span>
+        <span class="tag">Regulatory</span>
+      </div>
+      <div class="expand-hint">Click to expand</div>
+      <div class="card-details">
+        <div class="detail-section">
+          <h4>Agents</h4>
+          <ul>
+            <li>Claims Agent: auto-adjudication of routine claims, anomaly flagging for complex cases</li>
+            <li>Prior Auth Agent: reads clinical notes, matches to payer criteria, submits authorizations</li>
+            <li>Compliance Monitor: tracks regulatory changes across CMS, FDA, state-level</li>
+            <li>Revenue Cycle Agent: denial management, coding optimization, A/R follow-up</li>
+            <li>Clinical Trial Matcher: screens patient populations against eligibility criteria</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Turnaround Command Center -->
+    <div class="card" onclick="this.classList.toggle('expanded')">
+      <div class="card-top">
+        <div class="card-badge badge-platform">Platform</div>
+        <div class="evidence-badge evidence-strong">Strong Evidence</div>
+      </div>
+      <h3>Turnaround & Restructuring Command Center</h3>
+      <div class="card-desc">An agentic "war room" for turnaround situations — continuous financial monitoring, stakeholder communication agents, scenario modeling, and 13-week cash flow automation. Built for the speed and intensity of AlixPartners' core business.</div>
+      <div class="card-evidence">
+        <h4>Research Links</h4>
+        <p>
+          <span class="source-tag">Founding Practice Area</span>
+          <span class="source-tag">P&L-Tied Delivery Model</span>
+          <span class="source-tag">Small Senior Teams + 90-Day Sprints</span>
+          <br>Turnaround & restructuring is AlixPartners' founding capability and biggest differentiator. Their delivery model — small senior teams, P&L-tied accountability, 90-day sprints — is exactly where agentic amplification creates the most leverage. This accelerator says: "We understand your core business deeply enough to build agents specifically for it."
+        </p>
+      </div>
+      <div class="card-tags">
+        <span class="tag">Turnaround</span>
+        <span class="tag">Restructuring</span>
+        <span class="tag">13-Week Cash Flow</span>
+        <span class="tag">Scenario Modeling</span>
+      </div>
+      <div class="expand-hint">Click to expand</div>
+      <div class="card-details">
+        <div class="detail-section">
+          <h4>Agents</h4>
+          <ul>
+            <li>Cash Flow Agent: automated 13-week model, continuously updated from live data</li>
+            <li>Scenario Agent: Monte Carlo simulation of restructuring options, sensitivity analysis</li>
+            <li>Vendor/Creditor Agent: tracks obligations, prioritizes payments, drafts communications</li>
+            <li>Operational Agent: monitors KPIs across business units, flags deviations from turnaround plan</li>
+            <li>Reporting Agent: auto-generates board reports, lender updates, court filings</li>
+          </ul>
+        </div>
+        <div class="detail-section">
+          <h4>Positioning</h4>
+          <p>This is the crown jewel. No other technology partner is offering an agentic turnaround platform tailored to how AlixPartners works. First-mover advantage. Position as: "We don't just build AI — we build AI for how you specifically operate."</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════ -->
+<!-- OFF THE SHELF -->
+<!-- ════════════════════════════════════════ -->
+<div class="section show-all" id="ots">
+  <div class="section-head"><h2>Off-the-Shelf References & Starting Points</h2></div>
+  <div class="section-desc">Proven tools we leverage, extend, and enterprise-grade. Including these shows pragmatism — we don't reinvent when something good exists. Demonstrating these live builds credibility.</div>
+
+  <div class="card-grid">
+
+    <div class="card" onclick="this.classList.toggle('expanded')">
+      <div class="card-top">
+        <div class="card-badge badge-ready">Available Now</div>
+      </div>
+      <h3>Claude Code + MCP Ecosystem</h3>
+      <div class="card-desc">Anthropic's CLI agent for agentic coding and task execution. Combined with MCP connectors, it becomes a general-purpose enterprise agent. Can demo live: connect to Slack, CRM, codebase in real-time.</div>
+      <div class="card-tags">
+        <span class="tag">Anthropic</span>
+        <span class="tag">CLI Agent</span>
+        <span class="tag">MCP</span>
+        <span class="tag">Live Demo</span>
+      </div>
+      <div class="expand-hint">Click to expand</div>
+      <div class="card-details">
+        <div class="detail-section">
+          <h4>Workshop Demo Idea</h4>
+          <p>Live demo: "Let's build an agent right now." Connect Claude Code to a sample CRM and Slack via MCP. Show it processing a customer complaint end-to-end: reads email, creates ticket, updates CRM, drafts response, sends to Slack for approval. Five minutes, no custom code. This is what Karpathy calls "agentic engineering" in action.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" onclick="this.classList.toggle('expanded')">
+      <div class="card-top">
+        <div class="card-badge badge-ready">Available Now</div>
+      </div>
+      <h3>LangGraph / CrewAI / AutoGen</h3>
+      <div class="card-desc">Open-source multi-agent orchestration frameworks — LangGraph for stateful agent workflows, CrewAI for role-based agent teams, AutoGen for conversational agent patterns. We don't reinvent; we productionize.</div>
+      <div class="card-tags">
+        <span class="tag">Open Source</span>
+        <span class="tag">Multi-Agent</span>
+        <span class="tag">Orchestration</span>
+      </div>
+      <div class="expand-hint">Click to expand</div>
+      <div class="card-details">
+        <div class="detail-section">
+          <h4>Our Value-Add</h4>
+          <p>These frameworks are powerful but raw. Enterprise clients need error handling, retry logic, cost controls, observability, security, compliance, and SSO integration. That gap is the engineering work. We go from open-source prototype to production agent in weeks, not months.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" onclick="this.classList.toggle('expanded')">
+      <div class="card-top">
+        <div class="card-badge badge-ready">Available Now</div>
+      </div>
+      <h3>LLM Knowledge Base Stack (Karpathy Pattern)</h3>
+      <div class="card-desc">The Obsidian + LLM wiki pattern: raw data collected from multiple sources, compiled by an LLM into a structured .md wiki, then operated on by agents for Q&A and incremental enhancement. Karpathy uses it for ~100 articles, ~400K words with no RAG.</div>
+      <div class="card-tags">
+        <span class="tag">Obsidian</span>
+        <span class="tag">Wiki Compiler</span>
+        <span class="tag">Karpathy Pattern</span>
+      </div>
+      <div class="expand-hint">Click to expand</div>
+      <div class="card-details">
+        <div class="detail-section">
+          <h4>From Hack to Product</h4>
+          <p>Karpathy described this as "a hacky collection of scripts" and said there's room for "an incredible new product." The enterprise version adds: multi-user collaboration, access controls, audit trail, API access for downstream agents, and integration with enterprise data sources. The Context Graph Engine accelerator above is our productionized version of this pattern.</p>
+        </div>
+        <div class="detail-section">
+          <h4>Workshop Demo</h4>
+          <p>Show a pre-built knowledge base on a sample domain. Ask complex multi-hop questions. Show how outputs file back into the wiki, compounding the knowledge base. Then: "Imagine this built from your client's data room in 48 hours."</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</div>
+
+<div class="footer">
+  R Systems / AlixPartners — Agentic AI Workshop — April 2026 — Confidential: For workshop preparation only
+</div>
+
+<script>
+function showSection(id, btn) {
+  document.querySelectorAll('.nav-btn').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.section').forEach(s => {
+    s.classList.remove('active');
+    s.classList.remove('show-all');
+  });
+  if (id === 'all') {
+    document.querySelectorAll('.section').forEach(s => s.classList.add('show-all'));
+  } else {
+    document.getElementById(id).classList.add('active');
+  }
+}
+</script>
+
+</body>
+</html>
